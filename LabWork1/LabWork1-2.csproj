@@ -51,15 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="ConsoleDisplay.cs" />
     <Compile Include="DecoratorDoubleLine.cs" />
     <Compile Include="DecoratorTransposeMatrix.cs" />
     <Compile Include="DischargedMatrix.cs" />
     <Compile Include="DischargedVector.cs" />
-    <Compile Include="Drawer.cs" />
-    <Compile Include="ConsoleDrawer.cs" />
-    <Compile Include="GraphicDrawer.cs" />
-    <Compile Include="GraphicsPrimitives.cs" />
+    <Compile Include="DrawerMatrix.cs" />
+    <Compile Include="DrawerDisplay.cs" />
+    <Compile Include="GraphicsDisplay.cs" />
     <Compile Include="ConsolePrimitives.cs" />
+    <Compile Include="Primitives.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
@@ -70,6 +71,7 @@
     <Compile Include="NumLenght.cs" />
     <Compile Include="OrdinaryMatrix.cs" />
     <Compile Include="OrdinaryVector.cs" />
+    <Compile Include="GraphicsPrimitives.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymmetryMatrix.cs" />
     <Compile Include="Vector.cs" />

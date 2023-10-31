@@ -2,9 +2,9 @@
 
 public class SymmetryMatrix : AMatrix
 {
-    private IDrawer _scheme;
+    private IDrawerMatrix _scheme;
     private OrdinaryVector[] _vectors;
-    public SymmetryMatrix(int numDim, IDrawer scheme = null)
+    public SymmetryMatrix(int numDim, IDrawerMatrix scheme = null)
     {
         NumColumns = numDim;
         NumRows = numDim;

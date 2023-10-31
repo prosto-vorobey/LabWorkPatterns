@@ -1,29 +1,19 @@
-﻿using System.Drawing;
-
-public interface IGraphicsPrimitives
-{
-    void TextCell(string text, int corX, int corY);
-    void Line(int corX1, int corY1, int corX2, int corY2);
-
-}
-public class GraphicsPrimitives : IGraphicsPrimitives
+﻿using System;
+using System.Drawing;
+public class GraphicsPrimitives : IPrimitives
 {
     private Graphics _graphics;
-    private Font _fontArial;
     private Pen _pen;
-    private int _sizeFont = 9;
-    private int _penSize = 3;
+    int _penSize = 3;
     public GraphicsPrimitives(Graphics graphics)
     {
         _graphics = graphics;
-        _pen = new Pen(Color.Black, _penSize);
+        _pen = new Pen (Color.Black, _penSize);
 
     }
     public void TextCell(string text, int corX, int corY)
     {
-        _fontArial = new Font("Arial", _sizeFont);
-        Brush brush = new SolidBrush(Color.Black);
-        _graphics.DrawString(text, _fontArial, brush, corX, corY);
+
 
     }
     public void Line(int corX1, int corY1, int corX2, int corY2)

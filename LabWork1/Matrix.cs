@@ -6,13 +6,12 @@ public interface IMatrix
     int NumRows { get; }
     int Get(int col, int row);
     void Set(int col, int row, int val);
-    void Draw();
+    void Draw(IDrawerMatrix drawerMatrix);
     IMatrix GetComponent();
 
 }
 public abstract class AMatrix : IMatrix
 {
-    IDrawer _scheme;
     public int NumColumns
     {
         get;
@@ -65,57 +64,46 @@ public abstract class AMatrix : IMatrix
         return val;
 
     }
-    public virtual void Draw()
+    public virtual void Draw(IDrawerMatrix drawerMatrix)
     {
-        Border(GetLenghtMaxVal());
-        /*        paintBorder(this);
-                for (int i = 0; i < NumRows; i++)
-                {
-                    for (int j = 0; j < NumColumns; j++)
-                    {
-                        paintCellValue(this, i, j);
-                    }
+        drawerMatrix.DrawBorder(NumColumns, NumRows, GetLenghtMaxVal());
+/*        paintBorder(this);
+        for (int i = 0; i < NumRows; i++)
+        {
+            for (int j = 0; j < NumColumns; j++)
+            {
+                paintCellValue(this, i, j);
 
-                }*/
+            }
+
+        }*/
+
     }
-    /*    interface IPainter
-        {
-            void paintCellValue(IMatrix aMatrix, int i, int j);
-            void paintBorder(IMatrix aMatrix);
-        }
+/*    interface IPainter
+    {
+        void paintCellValue(IMatrix aMatrix, int i, int j);
+        void paintBorder(IMatrix aMatrix);
 
-        private IPainter painter;
+    }
+    private IPainter painter;
+    private void paintCellValue(IMatrix aMatrix, int i, int j)
+    {
+        painter.paintCellValue(aMatrix, i, j);
 
-        private void paintCellValue(IMatrix aMatrix, int i, int j)
-        {
-            painter.paintCellValue(aMatrix, i, j);
-        }
-
-        protected abstract void paintBorder(IMatrix aMatrix);*/
+    }
+    protected abstract void paintBorder(IMatrix aMatrix);*/
     public IMatrix GetComponent()
     {
         return this;
 
     }
     protected abstract IVector[] GetMatrixVector();
-    protected abstract IDrawer GetScheme();
+
     protected int GetLenghtMaxVal()
     {
         int valMax = new MatrixStatistic(this).ValMax;
         int maxValLenght = NumLenght.GetLenght(valMax);
         return maxValLenght;
-
-    }
-    protected void Content(string cont, int col, int row, int maxValLenght)
-    {
-        _scheme = GetScheme();
-        _scheme.Content(cont, col, row, maxValLenght);
-
-    }
-    protected void Border(int maxValLenght)
-    {
-        _scheme = GetScheme();
-        _scheme.Border(NumColumns, NumRows, maxValLenght);
 
     }
 

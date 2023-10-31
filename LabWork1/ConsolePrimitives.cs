@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 public interface IConsolePrimitives
 {
@@ -12,7 +13,8 @@ public class ConsolePrimitives : IConsolePrimitives
 {
     public void TextCell(string text, int corX, int corY)
     {
-        Console.SetCursorPosition(corX, corY);
+        int contLenght = text.Length;
+        Console.SetCursorPosition(corX - contLenght, corY);
         Console.WriteLine(text);
 
     }

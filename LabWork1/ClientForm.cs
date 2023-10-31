@@ -7,8 +7,10 @@ public partial class ClientForm : Form
     private Button ButtonGenOrdMatrix;
     private Button ButtonGenDisMatrix;
     private System.ComponentModel.BackgroundWorker backgroundWorker1;
-    private IDrawer _scheme;
     private IMatrix _matrix;
+    private IDrawerMatrix _drawer;
+    private IDrawerDisplay _display;
+    private IPrimitives _primetives;
     public Panel _panel1;
     private System.ComponentModel.BackgroundWorker backgroundWorker2;
     private Button button1;
@@ -16,11 +18,13 @@ public partial class ClientForm : Form
     private ContextMenuStrip contextMenuStrip1;
     private System.ComponentModel.IContainer components;
     private Random _rnd = new Random();
+    private ComboBox displayOptions;
     private bool _isTranspose = false;
     public ClientForm()
     {
         InitializeComponent();
         borderOptions.SelectedIndex = 0;
+        displayOptions.SelectedIndex = 0;
         DoubleBuffered = true;
 
     }
@@ -36,6 +40,7 @@ public partial class ClientForm : Form
             this.button1 = new System.Windows.Forms.Button();
             this.borderOptions = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.displayOptions = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // ButtonGenOrdMatrix
@@ -103,10 +108,25 @@ public partial class ClientForm : Form
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // displayOptions
+            // 
+            this.displayOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayOptions.Font = new System.Drawing.Font("Arial", 12F);
+            this.displayOptions.FormattingEnabled = true;
+            this.displayOptions.Items.AddRange(new object[] {
+            "Консоль",
+            "Графика"});
+            this.displayOptions.Location = new System.Drawing.Point(44, 401);
+            this.displayOptions.Name = "displayOptions";
+            this.displayOptions.Size = new System.Drawing.Size(177, 26);
+            this.displayOptions.TabIndex = 6;
+            this.displayOptions.SelectedIndexChanged += new System.EventHandler(this.displayOptions_SelectedIndexChanged);
+            // 
             // ClientForm
             // 
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(1004, 515);
+            this.Controls.Add(this.displayOptions);
             this.Controls.Add(this.borderOptions);
             this.Controls.Add(this.button1);
             this.Controls.Add(this._panel1);
@@ -114,22 +134,6 @@ public partial class ClientForm : Form
             this.Controls.Add(this.ButtonGenOrdMatrix);
             this.Name = "ClientForm";
             this.ResumeLayout(false);
-
-    }
-    private IDrawer RandomScheme()
-    {
-        IDrawer scheme;
-        if (_rnd.Next(0, 2) == 1)
-        {
-            scheme = new ConsoleDrawer();
-
-        }
-        else
-        {
-            scheme = new GraphicDrawer(_panel1);
-
-        }
-        return scheme;
 
     }
     private void DrawMatrix()
@@ -140,28 +144,39 @@ public partial class ClientForm : Form
         switch (borderOptions.SelectedIndex)
         {
             case 0:
-                //Что-то происходит
+                _primitives = new 
                 break;
             case 1:
-                _matrix.Draw();
+                _primitives = new 
                 break;
-            case 2:
-                //Что-то происходит
+            //case 2:
+            //    _driver = new DrawerMatrixWithBorder();
+            //    break;
+
+        }
+        switch (displayOptions.SelectedIndex)
+        {
+            case 0:
+                _display = new ConsoleDisplay(_primetives);
+                break;
+            case 1:
+                _display = new GraphicsDisplay(_primetives);
                 break;
 
         }
+        _drawer = new DrawerMatrix(_display);
+        _matrix.Draw(_drawer);
 
     }
     private void InitMatrix(int variant)
     {
-        _scheme = RandomScheme();
         switch (variant)
         {
             case 0:
-                _matrix = new OrdinaryMatrix(10, 5, _scheme);
+                _matrix = new OrdinaryMatrix(10, 5);
                 break;
             case 1:
-                _matrix = new DischargedMatrix(5, 10, _scheme);
+                _matrix = new DischargedMatrix(5, 10);
                 break;
         }
         MatrixInitiator.FillMatrix(_matrix, _rnd.Next(1, 51), _rnd.Next(1, 999));
@@ -181,7 +196,7 @@ public partial class ClientForm : Form
     }
     private void ButtonGenSymMatrix_Click(object sender, EventArgs e)
     {
-        _scheme = RandomScheme();
+        //_display = RandomScheme();
         /*_matrix = new SymmetryMatrix(5, _scheme);
         int[,] symMat = new int[5, 5] { { 0, 10, 2, 0, 5 }, { 10, 4, 1, 0, 0 }, { 2, 1, 3, 2, 2 }, { 0, 0, 2, 4, 3 }, { 5, 0, 2, 3, 0 } };
         _matrix.WriteMatrix(symMat);*/
@@ -198,4 +213,13 @@ public partial class ClientForm : Form
 
     }
 
+    private void displayOptions_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (_matrix != null)
+        {
+            DrawMatrix();
+
+        }
+
+    }
 }

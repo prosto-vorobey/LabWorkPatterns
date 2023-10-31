@@ -2,32 +2,15 @@
 
 public class OrdinaryMatrix : AMatrix
 {
-    private IDrawer _scheme;
     private OrdinaryVector[] _vectors;
-    public OrdinaryMatrix(int cols, int rows, IDrawer scheme = null)
+    public OrdinaryMatrix(int cols, int rows)
     {
         NumColumns = cols;
         NumRows = rows;
-        _scheme = scheme;
         _vectors = new OrdinaryVector[NumColumns];
         for (int i = 0; i < NumColumns; i++)
         {
             _vectors[i] = new OrdinaryVector(NumRows);
-
-        }
-
-    }
-    public override void Draw()
-    {
-        base.Draw();
-        for (int i = 0; i < NumColumns; i++)
-        {
-            for (int j = 0; j < NumRows; j++)
-            {
-                int num = Get(i, j);
-                Content(num.ToString(), i, j, GetLenghtMaxVal());
-
-            }
 
         }
 
@@ -37,9 +20,19 @@ public class OrdinaryMatrix : AMatrix
         return _vectors;
 
     }
-    protected override IDrawer GetScheme()
+    public override void Draw(IDrawerMatrix drawerMatrix)
     {
-        return _scheme;
+        base.Draw(drawerMatrix);
+        for (int i = 0; i < NumColumns; i++)
+        {
+            for (int j = 0; j < NumRows; j++)
+            {
+                int num = Get(i, j);
+                drawerMatrix.DrawContent(num.ToString(), i, j, GetLenghtMaxVal());
+
+            }
+
+        }
 
     }
 

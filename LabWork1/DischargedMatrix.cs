@@ -1,12 +1,10 @@
 ﻿public class DischargedMatrix : AMatrix
 {
-    private IDrawer _scheme;
     private IVector[] _vectors;
-    public DischargedMatrix(int cols, int rows, IDrawer scheme = null)
+    public DischargedMatrix(int cols, int rows)
     {
         NumColumns = cols;
         NumRows = rows;
-        _scheme = scheme;
         _vectors = new DischargedVector[NumColumns];
         for (int i = 0; i < NumColumns; i++)
         {
@@ -15,9 +13,14 @@
         }
 
     }
-    public override void Draw()
+    protected override IVector[] GetMatrixVector()
     {
-        base.Draw();
+        return _vectors;
+
+    }
+    public override void Draw(IDrawerMatrix drawerMatrix)
+    {
+        base.Draw(drawerMatrix);
         for (int i = 0; i < NumColumns; i++)
         {
             for (int j = 0; j < NumRows; j++)
@@ -28,21 +31,11 @@
                     continue;
 
                 }
-                Content(num.ToString(), i, j, GetLenghtMaxVal());
+                drawerMatrix.DrawContent(num.ToString(), i, j, GetLenghtMaxVal());
 
             }
 
         }
-
-    }
-    protected override IVector[] GetMatrixVector()
-    {
-        return _vectors;
-
-    }
-    protected override IDrawer GetScheme()
-    {
-        return _scheme;
 
     }
 

@@ -1,7 +1,7 @@
-﻿/*public class DecoratorDoubleLine : IPrimitiveLine
+﻿/*public class DecoratorDoubleLine : IGraphicsPrimitives
 {
-    IPrimitiveLine _prm;
-    public DecoratorDoubleLine (IPrimitiveLine prm)
+    IGraphicsPrimitives _prm;
+    public DecoratorDoubleLine (IGraphicsPrimitives prm)
     {
         _prm = prm;
 
@@ -19,4 +19,5 @@
 
     }
 
-}*/
+}
+*/

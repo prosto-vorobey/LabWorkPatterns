@@ -1,4 +1,5 @@
-﻿/*public class DecoratorTransposeMatrix : IMatrix
+﻿//Применять не к матрице, а к отображению матрицы
+/*public class DecoratorTransposeMatrix : IMatrix
 {
     IMatrix _matrix;
     public int NumColumns { get; }
