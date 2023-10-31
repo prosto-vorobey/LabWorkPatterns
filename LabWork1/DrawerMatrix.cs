@@ -1,30 +1,30 @@
 ﻿public interface IDrawerMatrix
 {
-    int GetIndex { get; }
     void DrawContent(string cont, int col, int row, int maxValLength);
-    void DrawCellBorder(int col, int row, int maxValLength);
     void DrawBorder(int numCols, int numRows, int maxValLength);
-    IDrawerMatrix GetComponent();
 
 }
-public abstract class ADrawerMatrix : IDrawerMatrix
+public abstract class DrawerMatrix : IDrawerMatrix
 {
-    public int GetIndex { get; protected set; }
+    IDrawerDisplay _drawerDisplay;
+    public DrawerMatrix (IDrawerDisplay drawerDisplay)
+    {
+        _drawerDisplay = drawerDisplay;
+
+    }
     public virtual void DrawContent(string cont, int col, int row, int maxValLength)
     {
-        int corCellX;
-        corCellX = (col + 1) * (maxValLength + 1);
-        int corCellY = row * 2 + 1;
-        GetDisplay().Content(cont, corCellX, corCellY);
+        int corCellX = col * maxValLength;
+        int corCellY = row * maxValLength;
+        _drawerDisplay.Content(cont, corCellX, corCellY);
 
     }
-    public abstract void DrawCellBorder(int col, int row, int maxValLength);
-    public abstract void DrawBorder(int numCols, int numRows, int maxValLength);
-    public IDrawerMatrix GetComponent()
+    public void DrawBorder(int numCols, int numRows, int maxValLength)
     {
-        return this;
+        int width = numCols * maxValLength;
+        int height = numRows * maxValLength;
+        _drawerDisplay.Border(width, height);
 
     }
-    protected abstract IDrawerDisplay GetDisplay();
 
 }

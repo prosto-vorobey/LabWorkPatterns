@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Dynamic;
+using System.Drawing;
 
 public interface IConsolePrimitives
 {
-    int GetIndex { get; }
     void TextCell(string text, int corX, int corY);
     void LineHorizontal(int corX1, int corY, int corX2);
     void LineVertical(int corX, int corY1, int corY2);
@@ -12,12 +11,6 @@ public interface IConsolePrimitives
 }
 public class ConsolePrimitives : IConsolePrimitives
 {
-    public ConsolePrimitives()
-    {
-        GetIndex = 0;
-
-    }
-    public int GetIndex { get; }
     public void TextCell(string text, int corX, int corY)
     {
         int contLenght = text.Length;

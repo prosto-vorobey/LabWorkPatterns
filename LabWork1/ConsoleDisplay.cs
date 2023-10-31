@@ -4,25 +4,23 @@
     public ConsoleDisplay(IConsolePrimitives primitives)
     {
         _primitives = primitives;
-        GetIndex = 0;
 
     }
-    public int GetIndex { get; }
     public void Content (string cont, int corCellX, int corCellY)
     {
         _primitives.TextCell(cont, corCellX, corCellY);
 
     }
-    public void Border (int corX1, int corY1, int corX2, int corY2)
+    public void Border (int corCellX, int corCellY)
     {
-        _primitives.LineHorizontal(corX1 + 1, corY1, corX2 - 1);
-        _primitives.LineHorizontal(corX1 + 1, corY2, corX2 - 1);
-        _primitives.LineVertical(corX1, corY1 + 1, corY2 - 1);
-        _primitives.LineVertical(corX2, corY1 + 1, corY2 - 1);
-        _primitives.Angle(corX1, corY1);
-        _primitives.Angle(corX1, corY2);
-        _primitives.Angle(corX2, corY1);
-        _primitives.Angle(corX2, corY2);
+        _primitives.LineHorizontal(1, 0, corCellX - 1);
+        _primitives.LineHorizontal(1, corCellY, corCellX - 1);
+        _primitives.LineVertical(0, 1, corCellY - 1);
+        _primitives.LineVertical(corCellX, 1, corCellY - 1);
+        _primitives.Angle(0, 0);
+        _primitives.Angle(0, corCellY);
+        _primitives.Angle(corCellX, 0);
+        _primitives.Angle(corCellX, corCellY);
 
     }
 

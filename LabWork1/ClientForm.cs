@@ -1,590 +1,171 @@
 ﻿using System;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using System.Drawing;
-using LabWork1;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 public partial class ClientForm : Form
 {
+    private Button ButtonGenOrdMatrix;
+    private Button ButtonGenDisMatrix;
     private System.ComponentModel.BackgroundWorker backgroundWorker1;
     private IMatrix _matrix;
-    public IDrawerMatrix Drawer { get; private set; }
-    public IDrawerDisplay Display { get; private set; }
-    public IGraphicsPrimitives GraphicsPrimitives { get; private set; }
-    public IConsolePrimitives ConsolePrimitives { get; private set; }
+    private IDrawerMatrix _drawer;
+    private IDrawerDisplay _display;
+    private IPrimitives _primetives;
+    public Panel _panel1;
     private System.ComponentModel.BackgroundWorker backgroundWorker2;
+    private Button button1;
+    private ComboBox borderOptions;
+    private ContextMenuStrip contextMenuStrip1;
     private System.ComponentModel.IContainer components;
     private Random _rnd = new Random();
-    private Panel panelSideMenu;
-    private Panel panelStyleMode;
-    private FontAwesome.Sharp.IconPictureBox iconPictureBoxSun;
-    private FontAwesome.Sharp.IconPictureBox iconPictureBoxMoon;
+    private ComboBox displayOptions;
     private bool _isTranspose = false;
-    private Panel panelDrawingMode;
-    private Panel panelInteractionMode;
-    private FontAwesome.Sharp.IconButton buttonDrawMatrix;
-    private FontAwesome.Sharp.IconButton buttonInteractionMode;
-    private FontAwesome.Sharp.IconButton buttonSettingsMode;
-    private Panel panelMatrixMode;
-    private FontAwesome.Sharp.IconButton buttonSymmetryMatrixMode;
-    private FontAwesome.Sharp.IconButton buttonDischargedMatrixMode;
-    private FontAwesome.Sharp.IconButton buttonOrdinaryMatrixMode;
-    private FontAwesome.Sharp.IconButton buttonMatrixMode;
-    private Panel panelLogo;
-    private Panel panelDrawing;
-    private PictureBox pictureBoxLogo;
-    private FontAwesome.Sharp.IconButton buttonRenumMatrix;
-    private FontAwesome.Sharp.IconButton buttonReinitMatrix;
-    private ClientSettingsForm _settingsForm;
-    private FontAwesome.Sharp.IconButton buttonRecoverMatrix;
-    private int _matrixTypeIndex;
-    private Random rnd = new Random();
     public ClientForm()
     {
         InitializeComponent();
-        customizeDesign();
-        this.DoubleBuffered = true;
+        borderOptions.SelectedIndex = 0;
+        displayOptions.SelectedIndex = 0;
+        DoubleBuffered = true;
 
     }
-    public Panel GetPanelDrawing()
-    {
-        return panelDrawing;
 
-    }
-    public void SetSettings()
-    {
-        Drawer = _settingsForm.Drawer;
-        Display = _settingsForm.Display;
-        ConsolePrimitives = _settingsForm.ConsolePrimetives;
-        GraphicsPrimitives = _settingsForm.GraphicsPrimetives;
-
-    }
     private void InitializeComponent()
     {
+            this.components = new System.ComponentModel.Container();
+            this.ButtonGenOrdMatrix = new System.Windows.Forms.Button();
+            this.ButtonGenDisMatrix = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this._panel1 = new System.Windows.Forms.Panel();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.panelSideMenu = new System.Windows.Forms.Panel();
-            this.panelInteractionMode = new System.Windows.Forms.Panel();
-            this.buttonRecoverMatrix = new FontAwesome.Sharp.IconButton();
-            this.buttonRenumMatrix = new FontAwesome.Sharp.IconButton();
-            this.buttonReinitMatrix = new FontAwesome.Sharp.IconButton();
-            this.buttonDrawMatrix = new FontAwesome.Sharp.IconButton();
-            this.buttonInteractionMode = new FontAwesome.Sharp.IconButton();
-            this.buttonSettingsMode = new FontAwesome.Sharp.IconButton();
-            this.panelMatrixMode = new System.Windows.Forms.Panel();
-            this.buttonSymmetryMatrixMode = new FontAwesome.Sharp.IconButton();
-            this.buttonDischargedMatrixMode = new FontAwesome.Sharp.IconButton();
-            this.buttonOrdinaryMatrixMode = new FontAwesome.Sharp.IconButton();
-            this.buttonMatrixMode = new FontAwesome.Sharp.IconButton();
-            this.panelLogo = new System.Windows.Forms.Panel();
-            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.panelStyleMode = new System.Windows.Forms.Panel();
-            this.iconPictureBoxSun = new FontAwesome.Sharp.IconPictureBox();
-            this.iconPictureBoxMoon = new FontAwesome.Sharp.IconPictureBox();
-            this.panelDrawingMode = new System.Windows.Forms.Panel();
-            this.panelDrawing = new System.Windows.Forms.Panel();
-            this.panelSideMenu.SuspendLayout();
-            this.panelInteractionMode.SuspendLayout();
-            this.panelMatrixMode.SuspendLayout();
-            this.panelLogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
-            this.panelStyleMode.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBoxSun)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBoxMoon)).BeginInit();
-            this.panelDrawingMode.SuspendLayout();
+            this.button1 = new System.Windows.Forms.Button();
+            this.borderOptions = new System.Windows.Forms.ComboBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.displayOptions = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // panelSideMenu
+            // ButtonGenOrdMatrix
             // 
-            this.panelSideMenu.AutoScroll = true;
-            this.panelSideMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(24)))), ((int)(((byte)(40)))));
-            this.panelSideMenu.Controls.Add(this.panelInteractionMode);
-            this.panelSideMenu.Controls.Add(this.buttonInteractionMode);
-            this.panelSideMenu.Controls.Add(this.buttonSettingsMode);
-            this.panelSideMenu.Controls.Add(this.panelMatrixMode);
-            this.panelSideMenu.Controls.Add(this.buttonMatrixMode);
-            this.panelSideMenu.Controls.Add(this.panelLogo);
-            this.panelSideMenu.Controls.Add(this.panelStyleMode);
-            this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(200, 515);
-            this.panelSideMenu.TabIndex = 7;
+            this.ButtonGenOrdMatrix.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ButtonGenOrdMatrix.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonGenOrdMatrix.Location = new System.Drawing.Point(44, 33);
+            this.ButtonGenOrdMatrix.Name = "ButtonGenOrdMatrix";
+            this.ButtonGenOrdMatrix.Size = new System.Drawing.Size(177, 95);
+            this.ButtonGenOrdMatrix.TabIndex = 0;
+            this.ButtonGenOrdMatrix.Text = "Генерация обычной матрицы";
+            this.ButtonGenOrdMatrix.UseVisualStyleBackColor = false;
+            this.ButtonGenOrdMatrix.Click += new System.EventHandler(this.ButtonGenOrdMatrix_Click);
             // 
-            // panelInteractionMode
+            // ButtonGenDisMatrix
             // 
-            this.panelInteractionMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(44)))), ((int)(((byte)(76)))));
-            this.panelInteractionMode.Controls.Add(this.buttonRecoverMatrix);
-            this.panelInteractionMode.Controls.Add(this.buttonRenumMatrix);
-            this.panelInteractionMode.Controls.Add(this.buttonReinitMatrix);
-            this.panelInteractionMode.Controls.Add(this.buttonDrawMatrix);
-            this.panelInteractionMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInteractionMode.Location = new System.Drawing.Point(0, 383);
-            this.panelInteractionMode.Name = "panelInteractionMode";
-            this.panelInteractionMode.Size = new System.Drawing.Size(183, 167);
-            this.panelInteractionMode.TabIndex = 12;
+            this.ButtonGenDisMatrix.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ButtonGenDisMatrix.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonGenDisMatrix.Location = new System.Drawing.Point(44, 156);
+            this.ButtonGenDisMatrix.Name = "ButtonGenDisMatrix";
+            this.ButtonGenDisMatrix.Size = new System.Drawing.Size(177, 95);
+            this.ButtonGenDisMatrix.TabIndex = 1;
+            this.ButtonGenDisMatrix.Text = "Генерация разреженной матрицы";
+            this.ButtonGenDisMatrix.UseVisualStyleBackColor = false;
+            this.ButtonGenDisMatrix.Click += new System.EventHandler(this.ButtonGenDisMatrix_Click);
             // 
-            // buttonRecoverMatrix
+            // _panel1
             // 
-            this.buttonRecoverMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonRecoverMatrix.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonRecoverMatrix.FlatAppearance.BorderSize = 0;
-            this.buttonRecoverMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRecoverMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonRecoverMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonRecoverMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonRecoverMatrix.IconColor = System.Drawing.Color.White;
-            this.buttonRecoverMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonRecoverMatrix.IconSize = 30;
-            this.buttonRecoverMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonRecoverMatrix.Location = new System.Drawing.Point(0, 120);
-            this.buttonRecoverMatrix.Name = "buttonRecoverMatrix";
-            this.buttonRecoverMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonRecoverMatrix.Size = new System.Drawing.Size(183, 40);
-            this.buttonRecoverMatrix.TabIndex = 7;
-            this.buttonRecoverMatrix.Text = "Восстановить";
-            this.buttonRecoverMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRecoverMatrix.UseVisualStyleBackColor = false;
-            this.buttonRecoverMatrix.Click += new System.EventHandler(this.buttonRecoverMatrix_Click);
+            this._panel1.AutoScroll = true;
+            this._panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this._panel1.Location = new System.Drawing.Point(250, 33);
+            this._panel1.Name = "_panel1";
+            this._panel1.Size = new System.Drawing.Size(700, 450);
+            this._panel1.TabIndex = 3;
             // 
-            // buttonRenumMatrix
+            // button1
             // 
-            this.buttonRenumMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonRenumMatrix.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonRenumMatrix.FlatAppearance.BorderSize = 0;
-            this.buttonRenumMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRenumMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonRenumMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonRenumMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonRenumMatrix.IconColor = System.Drawing.Color.White;
-            this.buttonRenumMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonRenumMatrix.IconSize = 30;
-            this.buttonRenumMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonRenumMatrix.Location = new System.Drawing.Point(0, 80);
-            this.buttonRenumMatrix.Name = "buttonRenumMatrix";
-            this.buttonRenumMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonRenumMatrix.Size = new System.Drawing.Size(183, 40);
-            this.buttonRenumMatrix.TabIndex = 6;
-            this.buttonRenumMatrix.Text = "Перенумеровать";
-            this.buttonRenumMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRenumMatrix.UseVisualStyleBackColor = false;
-            this.buttonRenumMatrix.Click += new System.EventHandler(this.buttonRenumMatrix_Click);
+            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(44, 280);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(177, 95);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Генерация симметричной матрицы";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.ButtonGenSymMatrix_Click);
             // 
-            // buttonReinitMatrix
+            // borderOptions
             // 
-            this.buttonReinitMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonReinitMatrix.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonReinitMatrix.FlatAppearance.BorderSize = 0;
-            this.buttonReinitMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReinitMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonReinitMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonReinitMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonReinitMatrix.IconColor = System.Drawing.Color.White;
-            this.buttonReinitMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonReinitMatrix.IconSize = 30;
-            this.buttonReinitMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonReinitMatrix.Location = new System.Drawing.Point(0, 40);
-            this.buttonReinitMatrix.Name = "buttonReinitMatrix";
-            this.buttonReinitMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonReinitMatrix.Size = new System.Drawing.Size(183, 40);
-            this.buttonReinitMatrix.TabIndex = 5;
-            this.buttonReinitMatrix.Text = "Пересобрать";
-            this.buttonReinitMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonReinitMatrix.UseVisualStyleBackColor = false;
-            this.buttonReinitMatrix.Click += new System.EventHandler(this.buttonReinitMatrix_Click);
+            this.borderOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.borderOptions.Font = new System.Drawing.Font("Arial", 12F);
+            this.borderOptions.FormattingEnabled = true;
+            this.borderOptions.Items.AddRange(new object[] {
+            "Нет границы",
+            "Обычная граница",
+            "Двойная граница"});
+            this.borderOptions.Location = new System.Drawing.Point(44, 457);
+            this.borderOptions.Name = "borderOptions";
+            this.borderOptions.Size = new System.Drawing.Size(177, 26);
+            this.borderOptions.TabIndex = 5;
+            this.borderOptions.SelectedIndexChanged += new System.EventHandler(this.borderOptions_SelectedIndexChanged);
             // 
-            // buttonDrawMatrix
+            // contextMenuStrip1
             // 
-            this.buttonDrawMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonDrawMatrix.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonDrawMatrix.FlatAppearance.BorderSize = 0;
-            this.buttonDrawMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDrawMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonDrawMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonDrawMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonDrawMatrix.IconColor = System.Drawing.Color.White;
-            this.buttonDrawMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonDrawMatrix.IconSize = 30;
-            this.buttonDrawMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonDrawMatrix.Location = new System.Drawing.Point(0, 0);
-            this.buttonDrawMatrix.Name = "buttonDrawMatrix";
-            this.buttonDrawMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonDrawMatrix.Size = new System.Drawing.Size(183, 40);
-            this.buttonDrawMatrix.TabIndex = 4;
-            this.buttonDrawMatrix.Text = "Вывести";
-            this.buttonDrawMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonDrawMatrix.UseVisualStyleBackColor = false;
-            this.buttonDrawMatrix.Click += new System.EventHandler(this.buttonDrawMatrix_Click);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // buttonInteractionMode
+            // displayOptions
             // 
-            this.buttonInteractionMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonInteractionMode.FlatAppearance.BorderSize = 0;
-            this.buttonInteractionMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonInteractionMode.Font = new System.Drawing.Font("Open Sans Semibold", 10F);
-            this.buttonInteractionMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonInteractionMode.IconChar = FontAwesome.Sharp.IconChar.PencilAlt;
-            this.buttonInteractionMode.IconColor = System.Drawing.Color.White;
-            this.buttonInteractionMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonInteractionMode.IconSize = 30;
-            this.buttonInteractionMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInteractionMode.Location = new System.Drawing.Point(0, 323);
-            this.buttonInteractionMode.Name = "buttonInteractionMode";
-            this.buttonInteractionMode.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.buttonInteractionMode.Size = new System.Drawing.Size(183, 60);
-            this.buttonInteractionMode.TabIndex = 11;
-            this.buttonInteractionMode.Text = "Действие";
-            this.buttonInteractionMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInteractionMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonInteractionMode.UseVisualStyleBackColor = true;
-            this.buttonInteractionMode.Click += new System.EventHandler(this.buttonInteractionMode_Click);
-            // 
-            // buttonSettingsMode
-            // 
-            this.buttonSettingsMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSettingsMode.FlatAppearance.BorderSize = 0;
-            this.buttonSettingsMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSettingsMode.Font = new System.Drawing.Font("Open Sans Semibold", 10F);
-            this.buttonSettingsMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonSettingsMode.IconChar = FontAwesome.Sharp.IconChar.Gears;
-            this.buttonSettingsMode.IconColor = System.Drawing.Color.White;
-            this.buttonSettingsMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonSettingsMode.IconSize = 30;
-            this.buttonSettingsMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSettingsMode.Location = new System.Drawing.Point(0, 263);
-            this.buttonSettingsMode.Name = "buttonSettingsMode";
-            this.buttonSettingsMode.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.buttonSettingsMode.Size = new System.Drawing.Size(183, 60);
-            this.buttonSettingsMode.TabIndex = 10;
-            this.buttonSettingsMode.Text = "Настройки";
-            this.buttonSettingsMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSettingsMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonSettingsMode.UseVisualStyleBackColor = true;
-            this.buttonSettingsMode.Click += new System.EventHandler(this.buttonSettingsMode_Click);
-            // 
-            // panelMatrixMode
-            // 
-            this.panelMatrixMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(44)))), ((int)(((byte)(76)))));
-            this.panelMatrixMode.Controls.Add(this.buttonSymmetryMatrixMode);
-            this.panelMatrixMode.Controls.Add(this.buttonDischargedMatrixMode);
-            this.panelMatrixMode.Controls.Add(this.buttonOrdinaryMatrixMode);
-            this.panelMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMatrixMode.Location = new System.Drawing.Point(0, 138);
-            this.panelMatrixMode.Name = "panelMatrixMode";
-            this.panelMatrixMode.Size = new System.Drawing.Size(183, 125);
-            this.panelMatrixMode.TabIndex = 8;
-            // 
-            // buttonSymmetryMatrixMode
-            // 
-            this.buttonSymmetryMatrixMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonSymmetryMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSymmetryMatrixMode.FlatAppearance.BorderSize = 0;
-            this.buttonSymmetryMatrixMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSymmetryMatrixMode.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonSymmetryMatrixMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonSymmetryMatrixMode.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonSymmetryMatrixMode.IconColor = System.Drawing.Color.White;
-            this.buttonSymmetryMatrixMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonSymmetryMatrixMode.IconSize = 30;
-            this.buttonSymmetryMatrixMode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonSymmetryMatrixMode.Location = new System.Drawing.Point(0, 80);
-            this.buttonSymmetryMatrixMode.Name = "buttonSymmetryMatrixMode";
-            this.buttonSymmetryMatrixMode.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonSymmetryMatrixMode.Size = new System.Drawing.Size(183, 40);
-            this.buttonSymmetryMatrixMode.TabIndex = 6;
-            this.buttonSymmetryMatrixMode.Text = "Симметричная";
-            this.buttonSymmetryMatrixMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSymmetryMatrixMode.UseVisualStyleBackColor = false;
-            this.buttonSymmetryMatrixMode.Click += new System.EventHandler(this.buttonSymmetryMatrixMode_Click);
-            // 
-            // buttonDischargedMatrixMode
-            // 
-            this.buttonDischargedMatrixMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonDischargedMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonDischargedMatrixMode.FlatAppearance.BorderSize = 0;
-            this.buttonDischargedMatrixMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDischargedMatrixMode.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonDischargedMatrixMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonDischargedMatrixMode.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonDischargedMatrixMode.IconColor = System.Drawing.Color.White;
-            this.buttonDischargedMatrixMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonDischargedMatrixMode.IconSize = 30;
-            this.buttonDischargedMatrixMode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonDischargedMatrixMode.Location = new System.Drawing.Point(0, 40);
-            this.buttonDischargedMatrixMode.Name = "buttonDischargedMatrixMode";
-            this.buttonDischargedMatrixMode.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonDischargedMatrixMode.Size = new System.Drawing.Size(183, 40);
-            this.buttonDischargedMatrixMode.TabIndex = 5;
-            this.buttonDischargedMatrixMode.Text = "Разреженная";
-            this.buttonDischargedMatrixMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonDischargedMatrixMode.UseVisualStyleBackColor = false;
-            this.buttonDischargedMatrixMode.Click += new System.EventHandler(this.buttonDischargedMatrixMode_Click);
-            // 
-            // buttonOrdinaryMatrixMode
-            // 
-            this.buttonOrdinaryMatrixMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonOrdinaryMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonOrdinaryMatrixMode.FlatAppearance.BorderSize = 0;
-            this.buttonOrdinaryMatrixMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonOrdinaryMatrixMode.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonOrdinaryMatrixMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonOrdinaryMatrixMode.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonOrdinaryMatrixMode.IconColor = System.Drawing.Color.White;
-            this.buttonOrdinaryMatrixMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonOrdinaryMatrixMode.IconSize = 30;
-            this.buttonOrdinaryMatrixMode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonOrdinaryMatrixMode.Location = new System.Drawing.Point(0, 0);
-            this.buttonOrdinaryMatrixMode.Name = "buttonOrdinaryMatrixMode";
-            this.buttonOrdinaryMatrixMode.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonOrdinaryMatrixMode.Size = new System.Drawing.Size(183, 40);
-            this.buttonOrdinaryMatrixMode.TabIndex = 4;
-            this.buttonOrdinaryMatrixMode.Text = "Обычная";
-            this.buttonOrdinaryMatrixMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOrdinaryMatrixMode.UseVisualStyleBackColor = false;
-            this.buttonOrdinaryMatrixMode.Click += new System.EventHandler(this.buttonOrdinaryMatrixMode_Click);
-            // 
-            // buttonMatrixMode
-            // 
-            this.buttonMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonMatrixMode.FlatAppearance.BorderSize = 0;
-            this.buttonMatrixMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMatrixMode.Font = new System.Drawing.Font("Open Sans Semibold", 10F);
-            this.buttonMatrixMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonMatrixMode.IconChar = FontAwesome.Sharp.IconChar.LayerGroup;
-            this.buttonMatrixMode.IconColor = System.Drawing.Color.White;
-            this.buttonMatrixMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonMatrixMode.IconSize = 30;
-            this.buttonMatrixMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonMatrixMode.Location = new System.Drawing.Point(0, 78);
-            this.buttonMatrixMode.Name = "buttonMatrixMode";
-            this.buttonMatrixMode.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.buttonMatrixMode.Size = new System.Drawing.Size(183, 60);
-            this.buttonMatrixMode.TabIndex = 9;
-            this.buttonMatrixMode.Text = "Выбрать матрицу";
-            this.buttonMatrixMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonMatrixMode.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.buttonMatrixMode.UseVisualStyleBackColor = true;
-            this.buttonMatrixMode.Click += new System.EventHandler(this.buttonMatrixMode_Click);
-            // 
-            // panelLogo
-            // 
-            this.panelLogo.Controls.Add(this.pictureBoxLogo);
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
-            this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(183, 78);
-            this.panelLogo.TabIndex = 7;
-            // 
-            // pictureBoxLogo
-            // 
-            this.pictureBoxLogo.Image = global::LabWork1.Properties.Resources.IconDarkStyleMatrixDrawer;
-            this.pictureBoxLogo.InitialImage = null;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(136, 76);
-            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxLogo.TabIndex = 0;
-            this.pictureBoxLogo.TabStop = false;
-            // 
-            // panelStyleMode
-            // 
-            this.panelStyleMode.Controls.Add(this.iconPictureBoxSun);
-            this.panelStyleMode.Controls.Add(this.iconPictureBoxMoon);
-            this.panelStyleMode.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelStyleMode.Location = new System.Drawing.Point(0, 550);
-            this.panelStyleMode.Name = "panelStyleMode";
-            this.panelStyleMode.Size = new System.Drawing.Size(183, 43);
-            this.panelStyleMode.TabIndex = 0;
-            // 
-            // iconPictureBoxSun
-            // 
-            this.iconPictureBoxSun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(24)))), ((int)(((byte)(40)))));
-            this.iconPictureBoxSun.IconChar = FontAwesome.Sharp.IconChar.Sun;
-            this.iconPictureBoxSun.IconColor = System.Drawing.Color.White;
-            this.iconPictureBoxSun.IconFont = FontAwesome.Sharp.IconFont.Regular;
-            this.iconPictureBoxSun.IconSize = 25;
-            this.iconPictureBoxSun.Location = new System.Drawing.Point(34, 8);
-            this.iconPictureBoxSun.Name = "iconPictureBoxSun";
-            this.iconPictureBoxSun.Size = new System.Drawing.Size(30, 25);
-            this.iconPictureBoxSun.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.iconPictureBoxSun.TabIndex = 1;
-            this.iconPictureBoxSun.TabStop = false;
-            this.iconPictureBoxSun.Click += new System.EventHandler(this.iconPictureBoxSun_Click);
-            // 
-            // iconPictureBoxMoon
-            // 
-            this.iconPictureBoxMoon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(24)))), ((int)(((byte)(40)))));
-            this.iconPictureBoxMoon.IconChar = FontAwesome.Sharp.IconChar.Moon;
-            this.iconPictureBoxMoon.IconColor = System.Drawing.Color.White;
-            this.iconPictureBoxMoon.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.iconPictureBoxMoon.IconSize = 23;
-            this.iconPictureBoxMoon.Location = new System.Drawing.Point(6, 8);
-            this.iconPictureBoxMoon.Name = "iconPictureBoxMoon";
-            this.iconPictureBoxMoon.Size = new System.Drawing.Size(30, 23);
-            this.iconPictureBoxMoon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.iconPictureBoxMoon.TabIndex = 0;
-            this.iconPictureBoxMoon.TabStop = false;
-            this.iconPictureBoxMoon.Click += new System.EventHandler(this.iconPictureBoxMoon_Click);
-            // 
-            // panelDrawingMode
-            // 
-            this.panelDrawingMode.Controls.Add(this.panelDrawing);
-            this.panelDrawingMode.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelDrawingMode.Location = new System.Drawing.Point(198, 0);
-            this.panelDrawingMode.Name = "panelDrawingMode";
-            this.panelDrawingMode.Size = new System.Drawing.Size(806, 515);
-            this.panelDrawingMode.TabIndex = 8;
-            // 
-            // panelDrawing
-            // 
-            this.panelDrawing.BackColor = System.Drawing.Color.White;
-            this.panelDrawing.Location = new System.Drawing.Point(30, 30);
-            this.panelDrawing.Name = "panelDrawing";
-            this.panelDrawing.Size = new System.Drawing.Size(746, 455);
-            this.panelDrawing.TabIndex = 4;
+            this.displayOptions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.displayOptions.Font = new System.Drawing.Font("Arial", 12F);
+            this.displayOptions.FormattingEnabled = true;
+            this.displayOptions.Items.AddRange(new object[] {
+            "Консоль",
+            "Графика"});
+            this.displayOptions.Location = new System.Drawing.Point(44, 401);
+            this.displayOptions.Name = "displayOptions";
+            this.displayOptions.Size = new System.Drawing.Size(177, 26);
+            this.displayOptions.TabIndex = 6;
+            this.displayOptions.SelectedIndexChanged += new System.EventHandler(this.displayOptions_SelectedIndexChanged);
             // 
             // ClientForm
             // 
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(14)))), ((int)(((byte)(22)))));
+            this.BackColor = System.Drawing.Color.Gainsboro;
             this.ClientSize = new System.Drawing.Size(1004, 515);
-            this.Controls.Add(this.panelDrawingMode);
-            this.Controls.Add(this.panelSideMenu);
+            this.Controls.Add(this.displayOptions);
+            this.Controls.Add(this.borderOptions);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this._panel1);
+            this.Controls.Add(this.ButtonGenDisMatrix);
+            this.Controls.Add(this.ButtonGenOrdMatrix);
             this.Name = "ClientForm";
-            this.panelSideMenu.ResumeLayout(false);
-            this.panelInteractionMode.ResumeLayout(false);
-            this.panelMatrixMode.ResumeLayout(false);
-            this.panelLogo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
-            this.panelStyleMode.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBoxSun)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconPictureBoxMoon)).EndInit();
-            this.panelDrawingMode.ResumeLayout(false);
             this.ResumeLayout(false);
 
     }
-    private void customizeDesign()
+    private void DrawMatrix()
     {
-        this.panelMatrixMode.Visible = false;
-        this.panelInteractionMode.Visible = false;
-        this.panelDrawing.Visible = false;
-        customizeStyleTheme(0);
-        //...
-
-    }
-    private void customizeStyleTheme(int variant)
-    {
-        Color colorFormBack = new Color();
-        Color colorPanelSideMenu = new Color();
-        Color colorPanelSubMenu = new Color();
-        Color colorPanelDrawing = new Color();
-        Color colorFont = new Color();
-        switch (variant)
+        _panel1.Controls.Clear();
+        Refresh();
+        Console.Clear();
+        switch (borderOptions.SelectedIndex)
         {
             case 0:
-                colorFormBack = ColorFormStyle.GetColorStyle("colorLightFormBack");
-                colorPanelSideMenu = ColorFormStyle.GetColorStyle("colorLightPanelSideMenu");
-                colorPanelSubMenu = ColorFormStyle.GetColorStyle("colorLightPanelSubMenu");
-                colorPanelDrawing = ColorFormStyle.GetColorStyle("colorLightPanelDrawing");
-                colorFont = ColorFormStyle.GetColorStyle("colorLightFont");
-                this.iconPictureBoxSun.IconFont = FontAwesome.Sharp.IconFont.Solid;
-                this.iconPictureBoxMoon.IconFont = FontAwesome.Sharp.IconFont.Regular;
-                this.pictureBoxLogo.Image = LabWork1.Properties.Resources.IconLightStyleMatrixDrawer;
+                _primitives = new 
                 break;
             case 1:
-                colorFormBack = ColorFormStyle.GetColorStyle("colorDarkFormBack");
-                colorPanelSideMenu = ColorFormStyle.GetColorStyle("colorDarkPanelSideMenu");
-                colorPanelSubMenu = ColorFormStyle.GetColorStyle("colorDarkPanelSubMenu");
-                colorPanelDrawing = ColorFormStyle.GetColorStyle("colorDarkPanelDrawing");
-                colorFont = ColorFormStyle.GetColorStyle("colorDarkFont");
-                this.iconPictureBoxMoon.IconFont = FontAwesome.Sharp.IconFont.Solid;
-                this.iconPictureBoxSun.IconFont = FontAwesome.Sharp.IconFont.Regular;
-                this.pictureBoxLogo.Image = LabWork1.Properties.Resources.IconDarkStyleMatrixDrawer;
+                _primitives = new 
+                break;
+            //case 2:
+            //    _driver = new DrawerMatrixWithBorder();
+            //    break;
+
+        }
+        switch (displayOptions.SelectedIndex)
+        {
+            case 0:
+                _display = new ConsoleDisplay(_primetives);
+                break;
+            case 1:
+                _display = new GraphicsDisplay(_primetives);
                 break;
 
         }
-        //Back
-        this.BackColor = colorFormBack;
-        //SideMenu
-        this.panelSideMenu.BackColor = colorPanelSideMenu;
-        this.panelStyleMode.BackColor = colorPanelSideMenu;
-        //SubMenu
-        this.panelMatrixMode.BackColor = colorPanelSubMenu;
-        this.buttonOrdinaryMatrixMode.BackColor = colorPanelSubMenu;
-        this.buttonDischargedMatrixMode.BackColor = colorPanelSubMenu;
-        this.buttonSymmetryMatrixMode.BackColor = colorPanelSubMenu;
-        this.panelInteractionMode.BackColor = colorPanelSubMenu;
-        this.buttonDrawMatrix.BackColor = colorPanelSubMenu;
-        this.buttonReinitMatrix.BackColor = colorPanelSubMenu;
-        this.buttonRenumMatrix.BackColor = colorPanelSubMenu;
-        this.buttonRecoverMatrix.BackColor = colorPanelSubMenu;
-        //Drawing
-        this.panelDrawing.BackColor = colorPanelDrawing;
-        //Font
-        this.buttonMatrixMode.ForeColor = colorFont;
-        this.buttonOrdinaryMatrixMode.ForeColor = colorFont;
-        this.buttonDischargedMatrixMode.ForeColor = colorFont;
-        this.buttonSymmetryMatrixMode.ForeColor = colorFont;
-        this.buttonSettingsMode.ForeColor = colorFont;
-        this.buttonInteractionMode.ForeColor = colorFont;
-        this.buttonDrawMatrix.ForeColor = colorFont;
-        this.buttonReinitMatrix.ForeColor = colorFont;
-        this.buttonRenumMatrix.ForeColor = colorFont;
-        this.buttonRecoverMatrix.ForeColor = colorFont;
-        //Icon
-        this.buttonMatrixMode.IconColor = colorFont;
-        this.buttonOrdinaryMatrixMode.IconColor = colorFont;
-        this.buttonDischargedMatrixMode.IconColor = colorFont;
-        this.buttonSymmetryMatrixMode.IconColor = colorFont;
-        this.buttonSettingsMode.IconColor = colorFont;
-        this.buttonInteractionMode.IconColor = colorFont;
-        this.buttonDrawMatrix.IconColor = colorFont;
-        this.buttonReinitMatrix.IconColor = colorFont;
-        this.buttonRenumMatrix.IconColor = colorFont;
-        this.buttonRecoverMatrix.IconColor = colorFont;
-        //Specific Icon
-        this.iconPictureBoxMoon.IconColor = colorFont;
-        this.iconPictureBoxSun.IconColor = colorFont;
-
-    }
-    private void HideSubMenu()
-    {
-        if (panelMatrixMode.Visible)
-        {
-            panelMatrixMode.Visible = false;
-
-        }
-        if (panelInteractionMode.Visible)
-        {
-            panelInteractionMode.Visible = false;
-
-        }
-        //...
-
-    }
-    private void ClickSubMenu (Panel subMenu)
-    {
-        if (!subMenu.Visible)
-        {
-            subMenu.Visible = true;
-
-        }
-        else
-        {
-            subMenu.Visible = false;
-
-        }
-
-    }
-    private void DrawMatrix(IMatrix matrix)
-    {
-        this.panelDrawing.Visible = true;
-        Console.Clear();
-        panelDrawing.Refresh();
-        if (Drawer != null && Display != null && (GraphicsPrimitives != null || ConsolePrimitives != null))
-        {
-            matrix.Draw(Drawer);
-
-        }
+        _drawer = new DrawerMatrix(_display);
+        _matrix.Draw(_drawer);
 
     }
     private void InitMatrix(int variant)
@@ -597,116 +178,48 @@ public partial class ClientForm : Form
             case 1:
                 _matrix = new DischargedMatrix(5, 10);
                 break;
-            case 2:
-                //_matrix = new SymmetryMatrix(10, 10);
-                return;
-
         }
         MatrixInitiator.FillMatrix(_matrix, _rnd.Next(1, 51), _rnd.Next(1, 999));
 
     }
-    private void FirstInitMatrix(int variant)
+    private void ButtonGenOrdMatrix_Click(object sender, EventArgs e)
     {
-        _matrixTypeIndex = variant;
-        InitMatrix(_matrixTypeIndex);
-        CallSettingsForm();
+        InitMatrix(0);
+        DrawMatrix();
 
     }
-    private void CallSettingsForm()
+    private void ButtonGenDisMatrix_Click(object sender, EventArgs e)
     {
-        if (_settingsForm == null || _settingsForm.IsDisposed)
-        {
-            _settingsForm = new ClientSettingsForm(this);
-            _settingsForm.Show();
-
-        }
-        else
-        {
-            _settingsForm.Focus();
-
-        }
+        InitMatrix(1);
+        DrawMatrix();
 
     }
-    private void buttonMatrixMode_Click(object sender, EventArgs e)
+    private void ButtonGenSymMatrix_Click(object sender, EventArgs e)
     {
-        ClickSubMenu(panelMatrixMode);
+        //_display = RandomScheme();
+        /*_matrix = new SymmetryMatrix(5, _scheme);
+        int[,] symMat = new int[5, 5] { { 0, 10, 2, 0, 5 }, { 10, 4, 1, 0, 0 }, { 2, 1, 3, 2, 2 }, { 0, 0, 2, 4, 3 }, { 5, 0, 2, 3, 0 } };
+        _matrix.WriteMatrix(symMat);*/
+        //DrawMatrix();
 
     }
-    private void buttonOrdinaryMatrixMode_Click(object sender, EventArgs e)
-    {
-        FirstInitMatrix(0);
-
-    }
-    private void buttonDischargedMatrixMode_Click(object sender, EventArgs e)
-    {
-        FirstInitMatrix(1);
-
-    }
-    private void buttonSymmetryMatrixMode_Click(object sender, EventArgs e)
-    {
-        //FirstInitMatrix(2);
-
-    }
-    private void buttonSettingsMode_Click(object sender, EventArgs e)
-    {
-        CallSettingsForm();
-
-    }
-    private void buttonInteractionMode_Click(object sender, EventArgs e)
-    {
-        ClickSubMenu(panelInteractionMode);
-
-    }
-    private void buttonDrawMatrix_Click(object sender, EventArgs e)
+    private void borderOptions_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (_matrix != null)
         {
-            DrawMatrix(_matrix);
+            DrawMatrix();
 
         }
 
     }
-    private void iconPictureBoxMoon_Click(object sender, EventArgs e)
+
+    private void displayOptions_SelectedIndexChanged(object sender, EventArgs e)
     {
-        customizeStyleTheme(1);
+        if (_matrix != null)
+        {
+            DrawMatrix();
+
+        }
 
     }
-    private void iconPictureBoxSun_Click(object sender, EventArgs e)
-    {
-        customizeStyleTheme(0);
-
-    }
-    private void buttonReinitMatrix_Click(object sender, EventArgs e)
-    {
-        InitMatrix(_matrixTypeIndex);
-        DrawMatrix(_matrix);
-
-    }
-    private void buttonRenumMatrix_Click(object sender, EventArgs e)
-    {
-        //int _col1 = rnd.Next(_matrix.NumColumns);
-        //int _row1 = rnd.Next(_matrix.NumRows);
-        //int _col2 = rnd.Next(_matrix.NumColumns);
-        //int _row2 = rnd.Next(_matrix.NumRows);
-        //if (_matrix != null && Drawer != null)
-        //{
-        //    Drawer = new DecoratorRenumDrawerMatrix(Drawer, _col1, _row1, _col2, _row2);
-        //    _matrix = new DecoratorRenumMatrix(_matrix, _col1, _row1, _col2, _row2);
-
-        //}
-        //DrawMatrix(_matrix);
-
-    }
-    private void buttonRecoverMatrix_Click(object sender, EventArgs e)
-    {
-        //if (_matrix != null && Drawer != null)
-        //{
-        //    _matrix = _matrix.GetComponent();
-        //    Drawer = Drawer.GetComponent();
-
-        //}
-        //DrawMatrix(_matrix);
-
-    }
-
 }
