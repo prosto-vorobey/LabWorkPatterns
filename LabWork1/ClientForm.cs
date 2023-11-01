@@ -10,7 +10,7 @@ public partial class ClientForm : Form
     private IMatrix _matrix;
     private IDrawerMatrix _drawer;
     private IDrawerDisplay _display;
-    private IPrimitives _primetives;
+    private IGraphicsPrimitives _primetives;
     public Panel _panel1;
     private System.ComponentModel.BackgroundWorker backgroundWorker2;
     private Button button1;
@@ -144,10 +144,10 @@ public partial class ClientForm : Form
         switch (borderOptions.SelectedIndex)
         {
             case 0:
-                _primitives = new 
+                //_primitives = new 
                 break;
             case 1:
-                _primitives = new 
+                //_primitives = new 
                 break;
             //case 2:
             //    _driver = new DrawerMatrixWithBorder();
@@ -157,14 +157,14 @@ public partial class ClientForm : Form
         switch (displayOptions.SelectedIndex)
         {
             case 0:
-                _display = new ConsoleDisplay(_primetives);
+                //_display = new ConsoleDisplay(_primetives);
                 break;
             case 1:
-                _display = new GraphicsDisplay(_primetives);
+                //_display = new GraphicsDisplay(_primetives);
                 break;
 
         }
-        _drawer = new DrawerMatrix(_display);
+        //_drawer = new ADrawerMatrix(_display);
         _matrix.Draw(_drawer);
 
     }

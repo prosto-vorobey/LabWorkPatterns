@@ -52,15 +52,16 @@
   <ItemGroup>
     <Compile Include="Client.cs" />
     <Compile Include="ConsoleDisplay.cs" />
-    <Compile Include="DecoratorDoubleLine.cs" />
+    <Compile Include="DecoratorConsoleDoubleLine.cs" />
     <Compile Include="DecoratorTransposeMatrix.cs" />
     <Compile Include="DischargedMatrix.cs" />
     <Compile Include="DischargedVector.cs" />
     <Compile Include="DrawerMatrix.cs" />
     <Compile Include="DrawerDisplay.cs" />
+    <Compile Include="DrawerWithBorder.cs" />
+    <Compile Include="DrawerWithputBorder.cs" />
     <Compile Include="GraphicsDisplay.cs" />
     <Compile Include="ConsolePrimitives.cs" />
-    <Compile Include="Primitives.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>

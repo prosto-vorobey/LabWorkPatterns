@@ -1,11 +1,17 @@
-﻿/*public class DecoratorDoubleLine : IGraphicsPrimitives
+﻿public class DecoratorConsoleDoubleLine : IConsolePrimitives
 {
-    IGraphicsPrimitives _prm;
-    public DecoratorDoubleLine (IGraphicsPrimitives prm)
+    IConsolePrimitives _prm;
+    public DecoratorConsoleDoubleLine(IConsolePrimitives prm)
     {
         _prm = prm;
 
     }
+
+    public void Angle(int corX, int corY)
+    {
+        _prm.Angle(corX, corY);
+    }
+
     public void LineHorizontal(int corX1, int corY, int corX2)
     {
         _prm.LineHorizontal(corX1, corY, corX2);
@@ -19,5 +25,9 @@
 
     }
 
+    public void TextCell(string text, int corX, int corY)
+    {
+        _prm.TextCell(text, corX, corY);
+
+    }
 }
-*/
