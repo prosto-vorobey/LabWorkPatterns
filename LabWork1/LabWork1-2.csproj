@@ -58,6 +58,8 @@
     <Compile Include="Drawer.cs" />
     <Compile Include="ConsoleDrawer.cs" />
     <Compile Include="GraphicDrawer.cs" />
+    <Compile Include="GraphicsPrimitives.cs" />
+    <Compile Include="ConsolePrimitives.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
