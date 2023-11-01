@@ -1,4 +1,4 @@
-﻿public class DecoratorDoubleLine : IPrimitiveLine
+﻿/*public class DecoratorDoubleLine : IPrimitiveLine
 {
     IPrimitiveLine _prm;
     public DecoratorDoubleLine (IPrimitiveLine prm)
@@ -19,4 +19,4 @@
 
     }
 
-}
+}*/
