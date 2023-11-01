@@ -67,31 +67,8 @@ public abstract class AMatrix : IMatrix
     public virtual void Draw(IDrawerMatrix drawerMatrix)
     {
         drawerMatrix.DrawBorder(NumColumns, NumRows, GetLenghtMaxVal());
-/*        paintBorder(this);
-        for (int i = 0; i < NumRows; i++)
-        {
-            for (int j = 0; j < NumColumns; j++)
-            {
-                paintCellValue(this, i, j);
-
-            }
-
-        }*/
 
     }
-/*    interface IPainter
-    {
-        void paintCellValue(IMatrix aMatrix, int i, int j);
-        void paintBorder(IMatrix aMatrix);
-
-    }
-    private IPainter painter;
-    private void paintCellValue(IMatrix aMatrix, int i, int j)
-    {
-        painter.paintCellValue(aMatrix, i, j);
-
-    }
-    protected abstract void paintBorder(IMatrix aMatrix);*/
     public IMatrix GetComponent()
     {
         return this;
