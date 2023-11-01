@@ -2,7 +2,7 @@
 using System.Drawing;
 using System;
 
-public class DrawerScheme2 : IDrawer
+public class GraphicDrawer : IDrawer
 {
     private Panel _panel;
     private Graphics _graphics;
@@ -15,7 +15,7 @@ public class DrawerScheme2 : IDrawer
     private int _scaleWidth = 10;
     private int _scaleHeight = 10;
 
-    public DrawerScheme2(Panel panel)
+    public GraphicDrawer(Panel panel)
     {
         _panel = panel;
         _graphics = _panel.CreateGraphics();

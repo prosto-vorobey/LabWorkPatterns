@@ -56,8 +56,8 @@
     <Compile Include="DischargedMatrix.cs" />
     <Compile Include="DischargedVector.cs" />
     <Compile Include="Drawer.cs" />
-    <Compile Include="DrawerScheme1.cs" />
-    <Compile Include="DrawerScheme2.cs" />
+    <Compile Include="ConsoleDrawer.cs" />
+    <Compile Include="GraphicDrawer.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>

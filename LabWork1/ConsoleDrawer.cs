@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class DrawerScheme1 : IDrawer
+public class ConsoleDrawer : IDrawer
 {
     private IPrimitiveLine _primitiveLine = new PrimitiveLineScheme1();
     private IPrimitiveAngles _primitiveAngle = new PrimitiveAngles();

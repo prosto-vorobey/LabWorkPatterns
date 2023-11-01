@@ -121,12 +121,12 @@ public partial class ClientForm : Form
         IDrawer scheme;
         if (_rnd.Next(0, 2) == 1)
         {
-            scheme = new DrawerScheme1();
+            scheme = new ConsoleDrawer();
 
         }
         else
         {
-            scheme = new DrawerScheme2(_panel1);
+            scheme = new GraphicDrawer(_panel1);
 
         }
         return scheme;
@@ -140,13 +140,13 @@ public partial class ClientForm : Form
         switch (borderOptions.SelectedIndex)
         {
             case 0:
-                _matrix.DrawWithoutBorder();
+                //Что-то происходит
                 break;
             case 1:
-                _matrix.DrawWithBorder();
+                _matrix.Draw();
                 break;
             case 2:
-                _matrix.DrawWithDoubleBorder();
+                //Что-то происходит
                 break;
 
         }

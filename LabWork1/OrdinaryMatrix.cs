@@ -17,43 +17,29 @@ public class OrdinaryMatrix : AMatrix
         }
 
     }
-    protected override IVector[] GetMatrixVector()
+    public override void Draw()
     {
-        return _vectors;
-
-    }
-    public override void DrawWithoutBorder()
-    {
-        int maxValLenght = GetLenghtMaxVal();
-        DrawContect(maxValLenght);
-
-    }
-    public override void DrawWithBorder()
-    {
-        int maxValLenght = GetLenghtMaxVal();
-        Border(_scheme, maxValLenght);
-        DrawContect(maxValLenght);
-
-    }
-    public override void DrawWithDoubleBorder()
-    {
-        int maxValLenght = GetLenghtMaxVal();
-        DoubleBorder(_scheme, maxValLenght);
-        DrawContect(maxValLenght);
-
-    }
-    private void DrawContect(int maxValLenght)
-    {
+        base.Draw();
         for (int i = 0; i < NumColumns; i++)
         {
             for (int j = 0; j < NumRows; j++)
             {
                 int num = Get(i, j);
-                Content(_scheme, num.ToString(), i, j, maxValLenght);
+                Content(num.ToString(), i, j, GetLenghtMaxVal());
 
             }
 
         }
+
+    }
+    protected override IVector[] GetMatrixVector()
+    {
+        return _vectors;
+
+    }
+    protected override IDrawer GetScheme()
+    {
+        return _scheme;
 
     }
 

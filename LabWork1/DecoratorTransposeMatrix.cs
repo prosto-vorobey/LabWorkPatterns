@@ -1,4 +1,4 @@
-﻿public class DecoratorTransposeMatrix : IMatrix
+﻿/*public class DecoratorTransposeMatrix : IMatrix
 {
     IMatrix _matrix;
     public int NumColumns { get; }
@@ -41,4 +41,4 @@
 
     }
 
-}
+}*/
