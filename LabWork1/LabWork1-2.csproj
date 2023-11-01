@@ -70,8 +70,6 @@
     <Compile Include="NumLenght.cs" />
     <Compile Include="OrdinaryMatrix.cs" />
     <Compile Include="OrdinaryVector.cs" />
-    <Compile Include="PrimitiveAngles.cs" />
-    <Compile Include="PrimitiveLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SymmetryMatrix.cs" />
     <Compile Include="Vector.cs" />
