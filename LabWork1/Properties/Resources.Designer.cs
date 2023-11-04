@@ -59,25 +59,5 @@ namespace LabWork1.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap IconDarkStyleMatrixDrawer {
-            get {
-                object obj = ResourceManager.GetObject("IconDarkStyleMatrixDrawer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap IconLightStyleMatrixDrawer {
-            get {
-                object obj = ResourceManager.GetObject("IconLightStyleMatrixDrawer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

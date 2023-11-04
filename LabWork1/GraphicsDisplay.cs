@@ -28,7 +28,7 @@ public class GraphicsDisplay : IDrawerDisplay
 
     }
     public void Border(int width, int height)
-    {S
+    {
         int corX1 = 0;
         int corY1 = 0;
         int corX2 = width * _scaleWidth;
