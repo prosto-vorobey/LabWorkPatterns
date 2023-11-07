@@ -73,6 +73,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="ClientSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientSettingsForm.Designer.cs">
+      <DependentUpon>ClientSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ColorFormStyle.cs" />
     <Compile Include="ConsoleDisplay.cs" />
     <Compile Include="DecoratorConsoleDoubleLine.cs" />
     <Compile Include="DecoratorTransposeMatrix.cs" />
@@ -81,7 +88,7 @@
     <Compile Include="DrawerMatrix.cs" />
     <Compile Include="DrawerDisplay.cs" />
     <Compile Include="DrawerWithBorder.cs" />
-    <Compile Include="DrawerWithputBorder.cs" />
+    <Compile Include="DrawerWithoutBorder.cs" />
     <Compile Include="GraphicsDisplay.cs" />
     <Compile Include="ConsolePrimitives.cs" />
     <Compile Include="Matrix.cs" />
@@ -112,6 +119,9 @@
     <EmbeddedResource Include="ClientForm.resx">
       <DependentUpon>ClientForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ClientSettingsForm.resx">
+      <DependentUpon>ClientSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -128,6 +138,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconLightStyleMatrixDrawer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconDarkStyleMatrixDrawer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

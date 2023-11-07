@@ -11,20 +11,22 @@ public class GraphicsDisplay : IDrawerDisplay
     //private int _cellHeight = 4;
     private int _scaleWidth = 10;
     private int _scaleHeight = 10;
-
-    public GraphicsDisplay(Panel panel)
+    public GraphicsDisplay(Panel panel, IGraphicsPrimitives primitives)
     {
         _panel = panel;
         _graphics = _panel.CreateGraphics();
-        _primitives = new GraphicsPrimitives(_graphics);
+        _primitives = primitives;
+        _primitives = new GraphicsPrimitives();
+        GetIndex = 1;
 
     }
+    public int GetIndex { get; }
     public void Content(string cont, int corCellX, int corCellY)
     {
         int contLenght = cont.Length;
         int corX = (corCellX - contLenght) * _scaleWidth;
         int corY = corCellY * _scaleHeight + _scaleHeight;
-        _primitives.TextCell(cont, corX, corY);
+        _primitives.TextCell(_graphics, cont, corX, corY);
 
     }
     public void Border(int width, int height)
@@ -33,10 +35,10 @@ public class GraphicsDisplay : IDrawerDisplay
         int corY1 = 0;
         int corX2 = width * _scaleWidth;
         int corY2 = height * _scaleHeight;
-        _primitives.Line(corX1, corY1, corX2, corY1);
-        _primitives.Line(corX1, corY2, corX2, corY2);
-        _primitives.Line(corX1, corY1, corX1, corY2);
-        _primitives.Line(corX2, corY1, corX2, corY2);
+        _primitives.Line(_graphics, corX1, corY1, corX2, corY1);
+        _primitives.Line(_graphics, corX1, corY2, corX2, corY2);
+        _primitives.Line(_graphics, corX1, corY1, corX1, corY2);
+        _primitives.Line(_graphics, corX2, corY1, corX2, corY2);
 
     }
 
