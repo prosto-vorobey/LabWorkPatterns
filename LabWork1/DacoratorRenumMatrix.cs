@@ -4,27 +4,29 @@ using System.Drawing;
 public class DecoratorRenumMatrix : IMatrix
 {
     private IMatrix _matrix;
+    private IDrawerMatrix _drawerMatrix;
     private int _col1;
     private int _row1;
     private int _col2;
     private int _row2;
+    private Random rnd = new Random();
     public int NumColumns { get; }
     public int NumRows { get; }
-    public DecoratorRenumMatrix (IMatrix matrix, int col1, int row1, int col2, int row2)
+    public DecoratorRenumMatrix (IMatrix matrix)
     {
         _matrix = matrix;
         NumColumns = _matrix.NumColumns;
         NumRows = _matrix.NumRows;
-        _col1 = col1;
-        _row1 = row1;
-        _col2 = col2;
-        _row2 = row2;
-
+        _col1 = rnd.Next(NumColumns);
+        _row1 = rnd.Next(NumRows);
+        _col2 = rnd.Next(NumColumns);
+        _row2 = rnd.Next(NumRows);
     }
     public void Draw(IDrawerMatrix drawerMatrix)
     {
-        _matrix.Draw(drawerMatrix);
-        MessageWarning.MessageOutRange($"Перенумерованы ячейки: {_col1 + 1}, {_row1 + 1}({_matrix.Get(_col1, _row1)}) и {_col2 + 1}, {_row2 + 1}({Get(_col1, _row1)})");
+        _drawerMatrix = new DecoratorRenumDrawerMatrix(drawerMatrix, _col1, _row1, _col2, _row2);
+        _matrix.Draw(_drawerMatrix);
+        MessageWarning.MessageOutRange($"Перенумерованы ячейки: {_col1}, {_row1}({_matrix.Get(_col1, _row1)}) и {_col2}, {_row2}({Get(_col1, _row1)})");
 
     }
     public int Get(int col, int row)

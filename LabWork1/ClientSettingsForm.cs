@@ -6,20 +6,20 @@ namespace LabWork1
     public partial class ClientSettingsForm : Form
     {
         private ClientForm _clientForm;
-        private IDrawerMatrix _drawer;
-        private IDrawerDisplay _display;
-        private IGraphicsPrimitives _graphicsPrimetives;
-        private IConsolePrimitives _consolePrimetives;
+        public IDrawerMatrix Drawer { get; private set; }
+        public IDrawerDisplay Display { get; private set; }
+        public IGraphicsPrimitives GraphicsPrimetives { get; private set; }
+        public IConsolePrimitives ConsolePrimetives { get; private set; }
         public ClientSettingsForm(ClientForm clientForm)
         {
             InitializeComponent();
             comboBoxBorderType.Enabled = false;
             _clientForm = clientForm;
-            _drawer = _clientForm.Drawer;
-            _display = _clientForm.Display;
-            _graphicsPrimetives = _clientForm.GraphicsPrimitives;
-            _consolePrimetives = _clientForm.ConsolePrimitives;
-            VisualComboBoxes();
+            Drawer = _clientForm.Drawer;
+            Display = _clientForm.Display;
+            GraphicsPrimetives = _clientForm.GraphicsPrimitives;
+            ConsolePrimetives = _clientForm.ConsolePrimitives;
+            VisualizationComboBoxes();
 
         }
         private void SaveCharacteris()
@@ -28,25 +28,22 @@ namespace LabWork1
             {
                 case 0:
                     SwitchDisplay();
-                    _drawer = new DrawerWithoutBorder(_display);
+                    Drawer = new DrawerWithoutBorder(Display);
                     break;
                 case 1:
                     SwitchBorderType();
-                    _drawer = new DrawerWithBorder(_display);
+                    Drawer = new DrawerWithBorder(Display);
                     break;
 
             }
-            _clientForm.Drawer = _drawer;
-            _clientForm.Display = _display;
-            _clientForm.GraphicsPrimitives = _graphicsPrimetives;
-            _clientForm.ConsolePrimitives = _consolePrimetives;
+            _clientForm.SetSettings();
 
         }
-        private void VisualComboBoxes()
+        private void VisualizationComboBoxes()
         {
-            if (_display != null)
+            if (Display != null)
             {
-                switch (_display.GetIndex)
+                switch (Display.GetIndex)
                 {
                     case 0:
                         comboBoxDisplayMatrix.SelectedIndex = 0;
@@ -58,9 +55,9 @@ namespace LabWork1
                 }
 
             }
-            if (_drawer != null)
+            if (Drawer != null)
             {
-                switch (_drawer.GetIndex)
+                switch (Drawer.GetIndex)
                 {
                     case 0:
                         comboBoxBorderHave.SelectedIndex = 0;
@@ -72,9 +69,9 @@ namespace LabWork1
                 }
 
             }
-            if (_graphicsPrimetives != null)
+            if (GraphicsPrimetives != null)
             {
-                switch (_graphicsPrimetives.GetIndex)
+                switch (GraphicsPrimetives.GetIndex)
                 {
                     case 0:
                         comboBoxBorderType.SelectedIndex = 0;
@@ -86,9 +83,9 @@ namespace LabWork1
                 }
 
             }
-            if (_consolePrimetives != null)
+            if (ConsolePrimetives != null)
             {
-                switch (_consolePrimetives.GetIndex)
+                switch (ConsolePrimetives.GetIndex)
                 {
                     case 0:
                         comboBoxBorderType.SelectedIndex = 0;
@@ -107,12 +104,12 @@ namespace LabWork1
             switch (comboBoxDisplayMatrix.SelectedIndex)
             {
                 case 0:
-                    _consolePrimetives = new ConsolePrimitives();
-                    _display = new ConsoleDisplay(_consolePrimetives);
+                    ConsolePrimetives = new ConsolePrimitives();
+                    Display = new ConsoleDisplay(ConsolePrimetives);
                     break;
                 case 1:
-                    _graphicsPrimetives = new GraphicsPrimitives();
-                    _display = new GraphicsDisplay(_clientForm.GetPanelDrawing(), _graphicsPrimetives);
+                    GraphicsPrimetives = new GraphicsPrimitives();
+                    Display = new GraphicsDisplay(_clientForm.GetPanelDrawing(), GraphicsPrimetives);
                     break;
 
             }
@@ -129,12 +126,12 @@ namespace LabWork1
                     switch (comboBoxDisplayMatrix.SelectedIndex)
                     {
                         case 0:
-                            _consolePrimetives = new DecoratorConsoleDoubleLine(new ConsolePrimitives());
-                            _display = new ConsoleDisplay(_consolePrimetives);
+                            ConsolePrimetives = new DecoratorConsoleDoubleLine(new ConsolePrimitives());
+                            Display = new ConsoleDisplay(ConsolePrimetives);
                             break;
                         case 1:
-                            _graphicsPrimetives = new GraphicsPrimitives(); //Добавить декоратор!
-                            _display = new GraphicsDisplay(_clientForm.GetPanelDrawing(), _graphicsPrimetives);
+                            GraphicsPrimetives = new GraphicsPrimitives(); //Добавить декоратор!
+                            Display = new GraphicsDisplay(_clientForm.GetPanelDrawing(), GraphicsPrimetives);
                             break;
 
                     }

@@ -81,8 +81,9 @@
     </Compile>
     <Compile Include="ColorFormStyle.cs" />
     <Compile Include="ConsoleDisplay.cs" />
+    <Compile Include="DacoratorRenumMatrix.cs" />
     <Compile Include="DecoratorConsoleDoubleLine.cs" />
-    <Compile Include="DecoratorTransposeMatrix.cs" />
+    <Compile Include="DecoratorRenumDrawerMatrix.cs" />
     <Compile Include="DischargedMatrix.cs" />
     <Compile Include="DischargedVector.cs" />
     <Compile Include="DrawerMatrix.cs" />

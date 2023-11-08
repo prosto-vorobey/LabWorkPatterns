@@ -11,6 +11,10 @@
     {
 
     }
+    public override void DrawCellBorder(int col, int row, int maxValLength)
+    {
+
+    }
     protected override IDrawerDisplay GetDisplay()
     {
         return _drawerDisplay;
