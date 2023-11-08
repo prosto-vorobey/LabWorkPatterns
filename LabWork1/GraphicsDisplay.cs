@@ -29,16 +29,22 @@ public class GraphicsDisplay : IDrawerDisplay
         _primitives.TextCell(_graphics, cont, corX, corY);
 
     }
-    public void Border(int width, int height)
+    public void CellBorder(int corX1, int corY1, int corX2, int corY2)
     {
-        int corX1 = 0;
-        int corY1 = 0;
-        int corX2 = width * _scaleWidth;
-        int corY2 = height * _scaleHeight;
-        _primitives.Line(_graphics, corX1, corY1, corX2, corY1);
-        _primitives.Line(_graphics, corX1, corY2, corX2, corY2);
-        _primitives.Line(_graphics, corX1, corY1, corX1, corY2);
-        _primitives.Line(_graphics, corX2, corY1, corX2, corY2);
+        //_primitives.LineHorizontal(corX1, corY2, corY2);
+        //_primitives.LineVertical(corX2, corY1, corY2);
+
+    }
+    public void Border(int corX1, int corY1, int corX2, int corY2)
+    {
+        //int corX1 = 0;
+        //int corY1 = 0;
+        //int corX2 = width * _scaleWidth;
+        //int corY2 = height * _scaleHeight;
+        //_primitives.Line(_graphics, corX1, corY1, corX2, corY1);
+        //_primitives.Line(_graphics, corX1, corY2, corX2, corY2);
+        //_primitives.Line(_graphics, corX1, corY1, corX1, corY2);
+        //_primitives.Line(_graphics, corX2, corY1, corX2, corY2);
 
     }
 

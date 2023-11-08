@@ -20,12 +20,12 @@
     }
     public override void Draw(IDrawerMatrix drawerMatrix)
     {
-        base.Draw(drawerMatrix);
         for (int i = 0; i < NumColumns; i++)
         {
             for (int j = 0; j < NumRows; j++)
             {
                 int num = Get(i, j);
+                drawerMatrix.DrawCellBorder(i, j, GetLenghtMaxVal());
                 if (num == 0)
                 {
                     continue;
@@ -36,6 +36,7 @@
             }
 
         }
+        base.Draw(drawerMatrix);
 
     }
 
