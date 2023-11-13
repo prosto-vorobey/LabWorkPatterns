@@ -4,6 +4,7 @@
     void DrawContent(string cont, int col, int row, int maxValLength);
     void DrawCellBorder(int col, int row, int maxValLength);
     void DrawBorder(int numCols, int numRows, int maxValLength);
+    IDrawerMatrix GetComponent();
 
 }
 public abstract class ADrawerMatrix : IDrawerMatrix
@@ -19,6 +20,11 @@ public abstract class ADrawerMatrix : IDrawerMatrix
     }
     public abstract void DrawCellBorder(int col, int row, int maxValLength);
     public abstract void DrawBorder(int numCols, int numRows, int maxValLength);
+    public IDrawerMatrix GetComponent()
+    {
+        return this;
+
+    }
     protected abstract IDrawerDisplay GetDisplay();
 
 }

@@ -44,5 +44,10 @@
         _drawerMatrix.DrawBorder(numCols, numRows, maxValLength);
 
     }
+    public IDrawerMatrix GetComponent()
+    {
+        return _drawerMatrix;
+
+    }
 
 }
