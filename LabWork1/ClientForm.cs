@@ -38,6 +38,7 @@ public partial class ClientForm : Form
     private ClientSettingsForm _settingsForm;
     private FontAwesome.Sharp.IconButton buttonRecoverMatrix;
     private int _matrixTypeIndex;
+    private Random rnd = new Random();
     public ClientForm()
     {
         InitializeComponent();
@@ -64,6 +65,9 @@ public partial class ClientForm : Form
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.panelSideMenu = new System.Windows.Forms.Panel();
             this.panelInteractionMode = new System.Windows.Forms.Panel();
+            this.buttonRecoverMatrix = new FontAwesome.Sharp.IconButton();
+            this.buttonRenumMatrix = new FontAwesome.Sharp.IconButton();
+            this.buttonReinitMatrix = new FontAwesome.Sharp.IconButton();
             this.buttonDrawMatrix = new FontAwesome.Sharp.IconButton();
             this.buttonInteractionMode = new FontAwesome.Sharp.IconButton();
             this.buttonSettingsMode = new FontAwesome.Sharp.IconButton();
@@ -79,9 +83,6 @@ public partial class ClientForm : Form
             this.iconPictureBoxMoon = new FontAwesome.Sharp.IconPictureBox();
             this.panelDrawingMode = new System.Windows.Forms.Panel();
             this.panelDrawing = new System.Windows.Forms.Panel();
-            this.buttonReinitMatrix = new FontAwesome.Sharp.IconButton();
-            this.buttonRenumMatrix = new FontAwesome.Sharp.IconButton();
-            this.buttonRecoverMatrix = new FontAwesome.Sharp.IconButton();
             this.panelSideMenu.SuspendLayout();
             this.panelInteractionMode.SuspendLayout();
             this.panelMatrixMode.SuspendLayout();
@@ -122,6 +123,75 @@ public partial class ClientForm : Form
             this.panelInteractionMode.Name = "panelInteractionMode";
             this.panelInteractionMode.Size = new System.Drawing.Size(183, 167);
             this.panelInteractionMode.TabIndex = 12;
+            // 
+            // buttonRecoverMatrix
+            // 
+            this.buttonRecoverMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
+            this.buttonRecoverMatrix.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonRecoverMatrix.FlatAppearance.BorderSize = 0;
+            this.buttonRecoverMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRecoverMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
+            this.buttonRecoverMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonRecoverMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonRecoverMatrix.IconColor = System.Drawing.Color.White;
+            this.buttonRecoverMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.buttonRecoverMatrix.IconSize = 30;
+            this.buttonRecoverMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonRecoverMatrix.Location = new System.Drawing.Point(0, 120);
+            this.buttonRecoverMatrix.Name = "buttonRecoverMatrix";
+            this.buttonRecoverMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.buttonRecoverMatrix.Size = new System.Drawing.Size(183, 40);
+            this.buttonRecoverMatrix.TabIndex = 7;
+            this.buttonRecoverMatrix.Text = "Восстановить";
+            this.buttonRecoverMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonRecoverMatrix.UseVisualStyleBackColor = false;
+            this.buttonRecoverMatrix.Click += new System.EventHandler(this.buttonRecoverMatrix_Click);
+            // 
+            // buttonRenumMatrix
+            // 
+            this.buttonRenumMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
+            this.buttonRenumMatrix.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonRenumMatrix.FlatAppearance.BorderSize = 0;
+            this.buttonRenumMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonRenumMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
+            this.buttonRenumMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonRenumMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonRenumMatrix.IconColor = System.Drawing.Color.White;
+            this.buttonRenumMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.buttonRenumMatrix.IconSize = 30;
+            this.buttonRenumMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonRenumMatrix.Location = new System.Drawing.Point(0, 80);
+            this.buttonRenumMatrix.Name = "buttonRenumMatrix";
+            this.buttonRenumMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.buttonRenumMatrix.Size = new System.Drawing.Size(183, 40);
+            this.buttonRenumMatrix.TabIndex = 6;
+            this.buttonRenumMatrix.Text = "Перенумеровать";
+            this.buttonRenumMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonRenumMatrix.UseVisualStyleBackColor = false;
+            this.buttonRenumMatrix.Click += new System.EventHandler(this.buttonRenumMatrix_Click);
+            // 
+            // buttonReinitMatrix
+            // 
+            this.buttonReinitMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
+            this.buttonReinitMatrix.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonReinitMatrix.FlatAppearance.BorderSize = 0;
+            this.buttonReinitMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonReinitMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
+            this.buttonReinitMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonReinitMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonReinitMatrix.IconColor = System.Drawing.Color.White;
+            this.buttonReinitMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.buttonReinitMatrix.IconSize = 30;
+            this.buttonReinitMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonReinitMatrix.Location = new System.Drawing.Point(0, 40);
+            this.buttonReinitMatrix.Name = "buttonReinitMatrix";
+            this.buttonReinitMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.buttonReinitMatrix.Size = new System.Drawing.Size(183, 40);
+            this.buttonReinitMatrix.TabIndex = 5;
+            this.buttonReinitMatrix.Text = "Пересобрать";
+            this.buttonReinitMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonReinitMatrix.UseVisualStyleBackColor = false;
+            this.buttonReinitMatrix.Click += new System.EventHandler(this.buttonReinitMatrix_Click);
             // 
             // buttonDrawMatrix
             // 
@@ -373,75 +443,6 @@ public partial class ClientForm : Form
             this.panelDrawing.Size = new System.Drawing.Size(746, 455);
             this.panelDrawing.TabIndex = 4;
             // 
-            // buttonReinitMatrix
-            // 
-            this.buttonReinitMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonReinitMatrix.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonReinitMatrix.FlatAppearance.BorderSize = 0;
-            this.buttonReinitMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonReinitMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonReinitMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonReinitMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonReinitMatrix.IconColor = System.Drawing.Color.White;
-            this.buttonReinitMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonReinitMatrix.IconSize = 30;
-            this.buttonReinitMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonReinitMatrix.Location = new System.Drawing.Point(0, 40);
-            this.buttonReinitMatrix.Name = "buttonReinitMatrix";
-            this.buttonReinitMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonReinitMatrix.Size = new System.Drawing.Size(183, 40);
-            this.buttonReinitMatrix.TabIndex = 5;
-            this.buttonReinitMatrix.Text = "Пересобрать";
-            this.buttonReinitMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonReinitMatrix.UseVisualStyleBackColor = false;
-            this.buttonReinitMatrix.Click += new System.EventHandler(this.buttonReinitMatrix_Click);
-            // 
-            // buttonRenumMatrix
-            // 
-            this.buttonRenumMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonRenumMatrix.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonRenumMatrix.FlatAppearance.BorderSize = 0;
-            this.buttonRenumMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRenumMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonRenumMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonRenumMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonRenumMatrix.IconColor = System.Drawing.Color.White;
-            this.buttonRenumMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonRenumMatrix.IconSize = 30;
-            this.buttonRenumMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonRenumMatrix.Location = new System.Drawing.Point(0, 80);
-            this.buttonRenumMatrix.Name = "buttonRenumMatrix";
-            this.buttonRenumMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonRenumMatrix.Size = new System.Drawing.Size(183, 40);
-            this.buttonRenumMatrix.TabIndex = 6;
-            this.buttonRenumMatrix.Text = "Перенумеровать";
-            this.buttonRenumMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRenumMatrix.UseVisualStyleBackColor = false;
-            this.buttonRenumMatrix.Click += new System.EventHandler(this.buttonRenumMatrix_Click);
-            // 
-            // buttonRecoverMatrix
-            // 
-            this.buttonRecoverMatrix.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonRecoverMatrix.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonRecoverMatrix.FlatAppearance.BorderSize = 0;
-            this.buttonRecoverMatrix.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRecoverMatrix.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonRecoverMatrix.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonRecoverMatrix.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonRecoverMatrix.IconColor = System.Drawing.Color.White;
-            this.buttonRecoverMatrix.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonRecoverMatrix.IconSize = 30;
-            this.buttonRecoverMatrix.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonRecoverMatrix.Location = new System.Drawing.Point(0, 120);
-            this.buttonRecoverMatrix.Name = "buttonRecoverMatrix";
-            this.buttonRecoverMatrix.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonRecoverMatrix.Size = new System.Drawing.Size(183, 40);
-            this.buttonRecoverMatrix.TabIndex = 7;
-            this.buttonRecoverMatrix.Text = "Восстановить";
-            this.buttonRecoverMatrix.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRecoverMatrix.UseVisualStyleBackColor = false;
-            this.buttonRecoverMatrix.Click += new System.EventHandler(this.buttonRecoverMatrix_Click);
-            // 
             // ClientForm
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(14)))), ((int)(((byte)(22)))));
@@ -683,22 +684,28 @@ public partial class ClientForm : Form
     }
     private void buttonRenumMatrix_Click(object sender, EventArgs e)
     {
-        if (_matrix != null)
-        {
-            _matrix = new DecoratorRenumMatrix(_matrix);
+        //int _col1 = rnd.Next(_matrix.NumColumns);
+        //int _row1 = rnd.Next(_matrix.NumRows);
+        //int _col2 = rnd.Next(_matrix.NumColumns);
+        //int _row2 = rnd.Next(_matrix.NumRows);
+        //if (_matrix != null && Drawer != null)
+        //{
+        //    Drawer = new DecoratorRenumDrawerMatrix(Drawer, _col1, _row1, _col2, _row2);
+        //    _matrix = new DecoratorRenumMatrix(_matrix, _col1, _row1, _col2, _row2);
 
-        }
-        DrawMatrix(_matrix);
+        //}
+        //DrawMatrix(_matrix);
 
     }
     private void buttonRecoverMatrix_Click(object sender, EventArgs e)
     {
-        if (_matrix != null)
-        {
-            _matrix = _matrix.GetComponent();
+        //if (_matrix != null && Drawer != null)
+        //{
+        //    _matrix = _matrix.GetComponent();
+        //    Drawer = Drawer.GetComponent();
 
-        }
-        DrawMatrix(_matrix);
+        //}
+        //DrawMatrix(_matrix);
 
     }
 
