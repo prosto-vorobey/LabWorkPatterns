@@ -25,7 +25,6 @@ public class MatrixStatistic
     public MatrixStatistic(IMatrix matrix)
     {
         int count = 0;
-
         for (int i = 0; i < matrix.NumColumns; i++)
         {
             for (int j = 0; j < matrix.NumRows; j++)
@@ -48,7 +47,6 @@ public class MatrixStatistic
 
         }
         ValAver = (float)ValSumm / count;
-
 
     }
     public void ShowAllMatrixStatistic()

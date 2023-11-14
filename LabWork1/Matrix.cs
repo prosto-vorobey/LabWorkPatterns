@@ -6,13 +6,24 @@ public interface IMatrix
     int NumRows { get; }
     int Get(int col, int row);
     void Set(int col, int row, int val);
-    void Draw();
+    void AddMatrix(IMatrix matrix);
+    void Draw(IDrawerMatrix drawerMatrix);
+    IMatrixStrategy GetMatrixStrategy();
     IMatrix GetComponent();
 
 }
-public abstract class AMatrix : IMatrix
+public class Matrix : IMatrix
 {
-    IDrawer _scheme;
+    private IMatrixStrategy _strategy;
+    private IVector[] _vectors;
+    public Matrix (IMatrixStrategy matrixStrategy, int cols, int rows)
+    {
+        _strategy = matrixStrategy;
+        NumColumns = cols;
+        NumRows = rows;
+        _vectors = _strategy.GetMatrixVector(NumColumns, NumRows);
+
+    }
     public int NumColumns
     {
         get;
@@ -39,7 +50,7 @@ public abstract class AMatrix : IMatrix
                 throw new IndexOutOfRangeException("Введённое положение строки выходит за границы матрицы.");
 
             }
-            GetMatrixVector()[col].Set(row, val);
+            _vectors[col].Set(row, val);
 
         }
         catch (Exception ex)
@@ -54,7 +65,7 @@ public abstract class AMatrix : IMatrix
         int val = 0;
         try
         {
-            val = GetMatrixVector()[col].Get(row);
+            val = _vectors[col].Get(row);
 
         }
         catch (Exception ex)
@@ -65,58 +76,24 @@ public abstract class AMatrix : IMatrix
         return val;
 
     }
-    public virtual void Draw()
+    public void Draw(IDrawerMatrix drawerMatrix)
     {
-        Border(GetLenghtMaxVal());
-        /*        paintBorder(this);
-                for (int i = 0; i < NumRows; i++)
-                {
-                    for (int j = 0; j < NumColumns; j++)
-                    {
-                        paintCellValue(this, i, j);
-                    }
+        _strategy.Draw(this, drawerMatrix);
 
-                }*/
     }
-    /*    interface IPainter
-        {
-            void paintCellValue(IMatrix aMatrix, int i, int j);
-            void paintBorder(IMatrix aMatrix);
-        }
+    public IMatrixStrategy GetMatrixStrategy()
+    {
+        return _strategy;
 
-        private IPainter painter;
-
-        private void paintCellValue(IMatrix aMatrix, int i, int j)
-        {
-            painter.paintCellValue(aMatrix, i, j);
-        }
-
-        protected abstract void paintBorder(IMatrix aMatrix);*/
+    }
     public IMatrix GetComponent()
     {
         return this;
 
     }
-    protected abstract IVector[] GetMatrixVector();
-    protected abstract IDrawer GetScheme();
-    protected int GetLenghtMaxVal()
+    public void AddMatrix(IMatrix matrix)
     {
-        int valMax = new MatrixStatistic(this).ValMax;
-        int maxValLenght = NumLenght.GetLenght(valMax);
-        return maxValLenght;
-
-    }
-    protected void Content(string cont, int col, int row, int maxValLenght)
-    {
-        _scheme = GetScheme();
-        _scheme.Content(cont, col, row, maxValLenght);
-
-    }
-    protected void Border(int maxValLenght)
-    {
-        _scheme = GetScheme();
-        _scheme.Border(NumColumns, NumRows, maxValLenght);
-
+        throw new NotImplementedException();
     }
 
 }
