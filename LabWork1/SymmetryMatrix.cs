@@ -1,38 +1,33 @@
 ﻿using System;
 
-public class SymmetryMatrix : AMatrix
+public class SymmetryMatrix : AMatrixStrategy
 {
     private OrdinaryVector[] _vectors;
-    public SymmetryMatrix(int cols, int rows)
+    public override IVector[] GetMatrixVector(int cols, int rows)
     {
-        NumColumns = cols;
-        NumRows = rows;
-        _vectors = new OrdinaryVector[NumColumns];
-        for (int i = 0; i < NumColumns; i++)
+        _vectors = new OrdinaryVector[cols];
+        for (int i = 0; i < cols; i++)
         {
-            _vectors[i] = new OrdinaryVector(NumRows);
+            _vectors[i] = new OrdinaryVector(rows);
 
         }
-
-    }
-    protected override IVector[] GetMatrixVector()
-    {
         return _vectors;
 
     }
-    public override void Draw(IDrawerMatrix drawerMatrix)
+    public override void Draw(IMatrix matrix,IDrawerMatrix drawerMatrix)
     {
-        base.Draw(drawerMatrix);
-        for (int i = 0; i < NumColumns; i++)
+        for (int i = 0; i < matrix.NumColumns; i++)
         {
-            for (int j = 0; j < NumRows; j++)
+            for (int j = 0; j < matrix.NumRows; j++)
             {
-                int num = Get(i, j);
-                drawerMatrix.DrawContent(num.ToString(), i, j, GetLenghtMaxVal());
+                int num = matrix.Get(i, j);
+                drawerMatrix.DrawCellBorder(i, j, GetLenghtMaxVal(matrix));
+                drawerMatrix.DrawContent(num.ToString(), i, j, GetLenghtMaxVal(matrix));
 
             }
 
         }
+        base.Draw(matrix, drawerMatrix);
 
     }
 

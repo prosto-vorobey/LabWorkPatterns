@@ -26,7 +26,7 @@ public partial class ClientForm : Form
     private FontAwesome.Sharp.IconButton buttonInteractionMode;
     private FontAwesome.Sharp.IconButton buttonSettingsMode;
     private Panel panelMatrixMode;
-    private FontAwesome.Sharp.IconButton buttonSymmetryMatrixMode;
+    private FontAwesome.Sharp.IconButton buttonHorizontalGroupMatrixMode;
     private FontAwesome.Sharp.IconButton buttonDischargedMatrixMode;
     private FontAwesome.Sharp.IconButton buttonOrdinaryMatrixMode;
     private FontAwesome.Sharp.IconButton buttonMatrixMode;
@@ -72,7 +72,7 @@ public partial class ClientForm : Form
             this.buttonInteractionMode = new FontAwesome.Sharp.IconButton();
             this.buttonSettingsMode = new FontAwesome.Sharp.IconButton();
             this.panelMatrixMode = new System.Windows.Forms.Panel();
-            this.buttonSymmetryMatrixMode = new FontAwesome.Sharp.IconButton();
+            this.buttonHorizontalGroupMatrixMode = new FontAwesome.Sharp.IconButton();
             this.buttonDischargedMatrixMode = new FontAwesome.Sharp.IconButton();
             this.buttonOrdinaryMatrixMode = new FontAwesome.Sharp.IconButton();
             this.buttonMatrixMode = new FontAwesome.Sharp.IconButton();
@@ -119,7 +119,7 @@ public partial class ClientForm : Form
             this.panelInteractionMode.Controls.Add(this.buttonReinitMatrix);
             this.panelInteractionMode.Controls.Add(this.buttonDrawMatrix);
             this.panelInteractionMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelInteractionMode.Location = new System.Drawing.Point(0, 383);
+            this.panelInteractionMode.Location = new System.Drawing.Point(0, 389);
             this.panelInteractionMode.Name = "panelInteractionMode";
             this.panelInteractionMode.Size = new System.Drawing.Size(183, 167);
             this.panelInteractionMode.TabIndex = 12;
@@ -228,7 +228,7 @@ public partial class ClientForm : Form
             this.buttonInteractionMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonInteractionMode.IconSize = 30;
             this.buttonInteractionMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInteractionMode.Location = new System.Drawing.Point(0, 323);
+            this.buttonInteractionMode.Location = new System.Drawing.Point(0, 329);
             this.buttonInteractionMode.Name = "buttonInteractionMode";
             this.buttonInteractionMode.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.buttonInteractionMode.Size = new System.Drawing.Size(183, 60);
@@ -251,7 +251,7 @@ public partial class ClientForm : Form
             this.buttonSettingsMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.buttonSettingsMode.IconSize = 30;
             this.buttonSettingsMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSettingsMode.Location = new System.Drawing.Point(0, 263);
+            this.buttonSettingsMode.Location = new System.Drawing.Point(0, 269);
             this.buttonSettingsMode.Name = "buttonSettingsMode";
             this.buttonSettingsMode.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.buttonSettingsMode.Size = new System.Drawing.Size(183, 60);
@@ -265,37 +265,37 @@ public partial class ClientForm : Form
             // panelMatrixMode
             // 
             this.panelMatrixMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(44)))), ((int)(((byte)(76)))));
-            this.panelMatrixMode.Controls.Add(this.buttonSymmetryMatrixMode);
+            this.panelMatrixMode.Controls.Add(this.buttonHorizontalGroupMatrixMode);
             this.panelMatrixMode.Controls.Add(this.buttonDischargedMatrixMode);
             this.panelMatrixMode.Controls.Add(this.buttonOrdinaryMatrixMode);
             this.panelMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMatrixMode.Location = new System.Drawing.Point(0, 138);
             this.panelMatrixMode.Name = "panelMatrixMode";
-            this.panelMatrixMode.Size = new System.Drawing.Size(183, 125);
+            this.panelMatrixMode.Size = new System.Drawing.Size(183, 131);
             this.panelMatrixMode.TabIndex = 8;
             // 
-            // buttonSymmetryMatrixMode
+            // buttonHorizontalGroupMatrixMode
             // 
-            this.buttonSymmetryMatrixMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
-            this.buttonSymmetryMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSymmetryMatrixMode.FlatAppearance.BorderSize = 0;
-            this.buttonSymmetryMatrixMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSymmetryMatrixMode.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
-            this.buttonSymmetryMatrixMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.buttonSymmetryMatrixMode.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.buttonSymmetryMatrixMode.IconColor = System.Drawing.Color.White;
-            this.buttonSymmetryMatrixMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.buttonSymmetryMatrixMode.IconSize = 30;
-            this.buttonSymmetryMatrixMode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonSymmetryMatrixMode.Location = new System.Drawing.Point(0, 80);
-            this.buttonSymmetryMatrixMode.Name = "buttonSymmetryMatrixMode";
-            this.buttonSymmetryMatrixMode.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.buttonSymmetryMatrixMode.Size = new System.Drawing.Size(183, 40);
-            this.buttonSymmetryMatrixMode.TabIndex = 6;
-            this.buttonSymmetryMatrixMode.Text = "Симметричная";
-            this.buttonSymmetryMatrixMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSymmetryMatrixMode.UseVisualStyleBackColor = false;
-            this.buttonSymmetryMatrixMode.Click += new System.EventHandler(this.buttonSymmetryMatrixMode_Click);
+            this.buttonHorizontalGroupMatrixMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(65)))), ((int)(((byte)(114)))));
+            this.buttonHorizontalGroupMatrixMode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonHorizontalGroupMatrixMode.FlatAppearance.BorderSize = 0;
+            this.buttonHorizontalGroupMatrixMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonHorizontalGroupMatrixMode.Font = new System.Drawing.Font("Open Sans Semibold", 9F);
+            this.buttonHorizontalGroupMatrixMode.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.buttonHorizontalGroupMatrixMode.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonHorizontalGroupMatrixMode.IconColor = System.Drawing.Color.White;
+            this.buttonHorizontalGroupMatrixMode.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.buttonHorizontalGroupMatrixMode.IconSize = 30;
+            this.buttonHorizontalGroupMatrixMode.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonHorizontalGroupMatrixMode.Location = new System.Drawing.Point(0, 80);
+            this.buttonHorizontalGroupMatrixMode.Name = "buttonHorizontalGroupMatrixMode";
+            this.buttonHorizontalGroupMatrixMode.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
+            this.buttonHorizontalGroupMatrixMode.Size = new System.Drawing.Size(183, 45);
+            this.buttonHorizontalGroupMatrixMode.TabIndex = 6;
+            this.buttonHorizontalGroupMatrixMode.Text = "Горизонтальная группа";
+            this.buttonHorizontalGroupMatrixMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHorizontalGroupMatrixMode.UseVisualStyleBackColor = false;
+            this.buttonHorizontalGroupMatrixMode.Click += new System.EventHandler(this.buttonHorizontalGroupMatrixMode_Click);
             // 
             // buttonDischargedMatrixMode
             // 
@@ -391,7 +391,7 @@ public partial class ClientForm : Form
             this.panelStyleMode.Controls.Add(this.iconPictureBoxSun);
             this.panelStyleMode.Controls.Add(this.iconPictureBoxMoon);
             this.panelStyleMode.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelStyleMode.Location = new System.Drawing.Point(0, 550);
+            this.panelStyleMode.Location = new System.Drawing.Point(0, 556);
             this.panelStyleMode.Name = "panelStyleMode";
             this.panelStyleMode.Size = new System.Drawing.Size(183, 43);
             this.panelStyleMode.TabIndex = 0;
@@ -511,7 +511,7 @@ public partial class ClientForm : Form
         this.panelMatrixMode.BackColor = colorPanelSubMenu;
         this.buttonOrdinaryMatrixMode.BackColor = colorPanelSubMenu;
         this.buttonDischargedMatrixMode.BackColor = colorPanelSubMenu;
-        this.buttonSymmetryMatrixMode.BackColor = colorPanelSubMenu;
+        this.buttonHorizontalGroupMatrixMode.BackColor = colorPanelSubMenu;
         this.panelInteractionMode.BackColor = colorPanelSubMenu;
         this.buttonDrawMatrix.BackColor = colorPanelSubMenu;
         this.buttonReinitMatrix.BackColor = colorPanelSubMenu;
@@ -523,7 +523,7 @@ public partial class ClientForm : Form
         this.buttonMatrixMode.ForeColor = colorFont;
         this.buttonOrdinaryMatrixMode.ForeColor = colorFont;
         this.buttonDischargedMatrixMode.ForeColor = colorFont;
-        this.buttonSymmetryMatrixMode.ForeColor = colorFont;
+        this.buttonHorizontalGroupMatrixMode.ForeColor = colorFont;
         this.buttonSettingsMode.ForeColor = colorFont;
         this.buttonInteractionMode.ForeColor = colorFont;
         this.buttonDrawMatrix.ForeColor = colorFont;
@@ -534,7 +534,7 @@ public partial class ClientForm : Form
         this.buttonMatrixMode.IconColor = colorFont;
         this.buttonOrdinaryMatrixMode.IconColor = colorFont;
         this.buttonDischargedMatrixMode.IconColor = colorFont;
-        this.buttonSymmetryMatrixMode.IconColor = colorFont;
+        this.buttonHorizontalGroupMatrixMode.IconColor = colorFont;
         this.buttonSettingsMode.IconColor = colorFont;
         this.buttonInteractionMode.IconColor = colorFont;
         this.buttonDrawMatrix.IconColor = colorFont;
@@ -589,13 +589,16 @@ public partial class ClientForm : Form
     }
     private void InitMatrix(int variant)
     {
+        IMatrixStrategy matrixStrategy;
         switch (variant)
         {
             case 0:
-                _matrix = new OrdinaryMatrix(10, 5);
+                matrixStrategy = new OrdinaryMatrix();
+                _matrix = new Matrix(matrixStrategy, 10, 5);
                 break;
             case 1:
-                _matrix = new DischargedMatrix(5, 10);
+                matrixStrategy = new DischargedMatrix();
+                _matrix = new Matrix(matrixStrategy, 5, 10);
                 break;
             case 2:
                 //_matrix = new SymmetryMatrix(10, 10);
@@ -642,7 +645,7 @@ public partial class ClientForm : Form
         FirstInitMatrix(1);
 
     }
-    private void buttonSymmetryMatrixMode_Click(object sender, EventArgs e)
+    private void buttonHorizontalGroupMatrixMode_Click(object sender, EventArgs e)
     {
         //FirstInitMatrix(2);
 
@@ -684,28 +687,22 @@ public partial class ClientForm : Form
     }
     private void buttonRenumMatrix_Click(object sender, EventArgs e)
     {
-        //int _col1 = rnd.Next(_matrix.NumColumns);
-        //int _row1 = rnd.Next(_matrix.NumRows);
-        //int _col2 = rnd.Next(_matrix.NumColumns);
-        //int _row2 = rnd.Next(_matrix.NumRows);
-        //if (_matrix != null && Drawer != null)
-        //{
-        //    Drawer = new DecoratorRenumDrawerMatrix(Drawer, _col1, _row1, _col2, _row2);
-        //    _matrix = new DecoratorRenumMatrix(_matrix, _col1, _row1, _col2, _row2);
+        if (_matrix != null && Drawer != null)
+        {
+            _matrix = new DecoratorRenumMatrix(_matrix);
 
-        //}
-        //DrawMatrix(_matrix);
+        }
+        DrawMatrix(_matrix);
 
     }
     private void buttonRecoverMatrix_Click(object sender, EventArgs e)
     {
-        //if (_matrix != null && Drawer != null)
-        //{
-        //    _matrix = _matrix.GetComponent();
-        //    Drawer = Drawer.GetComponent();
+        if (_matrix != null && Drawer != null)
+        {
+            _matrix = _matrix.GetComponent();
 
-        //}
-        //DrawMatrix(_matrix);
+        }
+        DrawMatrix(_matrix);
 
     }
 

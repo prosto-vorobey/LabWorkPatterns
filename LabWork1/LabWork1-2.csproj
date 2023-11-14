@@ -80,10 +80,12 @@
       <DependentUpon>ClientSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ColorFormStyle.cs" />
+    <Compile Include="CompositeMatrix.cs" />
     <Compile Include="ConsoleDisplay.cs" />
-    <Compile Include="DacoratorRenumMatrix.cs" />
+    <Compile Include="DecorateShiftRightDrawerMatrix.cs" />
+    <Compile Include="DecoratorRenumMatrix.cs" />
     <Compile Include="DecoratorConsoleDoubleLine.cs" />
-    <Compile Include="DecoratorRenumDrawerMatrix.cs" />
+    <Compile Include="DecoratorTransposeMatrix.cs" />
     <Compile Include="DischargedMatrix.cs" />
     <Compile Include="DischargedVector.cs" />
     <Compile Include="DrawerMatrix.cs" />
@@ -92,6 +94,8 @@
     <Compile Include="DrawerWithoutBorder.cs" />
     <Compile Include="GraphicsDisplay.cs" />
     <Compile Include="ConsolePrimitives.cs" />
+    <Compile Include="HorizontalGroupMatrix.cs" />
+    <Compile Include="IMatrixStrategy.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
