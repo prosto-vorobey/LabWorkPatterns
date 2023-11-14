@@ -4,12 +4,7 @@ using System.Collections.Generic;
 public class HorizontalGroupMatrix : IMatrix
 {
     private List<IMatrix> _matrixes = new List<IMatrix>();
-    private IMatrixStrategy _strategy;
-    public HorizontalGroupMatrix()
-    {
-        _strategy = new CompositeMatrix();
-
-    }
+    private IMatrixStrategy _strategy = new CompositeMatrix();
     public int NumColumns
     {
         get
@@ -53,23 +48,36 @@ public class HorizontalGroupMatrix : IMatrix
     {
         int shiftCol = 0;
         int shiftRow = 0;
-        drawerMatrix = new DecorateShiftRightDrawerMatrix(drawerMatrix, shiftCol, shiftRow);
+        IDrawerMatrix _drawerMatrix = drawerMatrix;
         foreach (IMatrix matrix in _matrixes)
         {
+            drawerMatrix = new DecorateShiftRightDrawerMatrix(drawerMatrix, shiftCol, shiftRow);
+            //Разобраться со смещением при разных размерах содержимого матрицы
             matrix.Draw(drawerMatrix);
-            shiftCol += matrix.NumColumns;
+            shiftCol = matrix.NumColumns;
 
         }
-        _strategy.Draw(this, drawerMatrix);
+        _strategy.Draw(this, _drawerMatrix);
 
     }
     public int Get(int col, int row)
     {
         int val = 0;
-        IMatrix matrix = GetNeedMatrix(col, row);
-        if (matrix != null)
+        foreach (IMatrix matrix in _matrixes)
         {
+            if (col >= matrix.NumColumns)
+            {
+                col -= matrix.NumColumns;
+                continue;
+
+            }
+            if (row >= matrix.NumRows)
+            {
+                continue;
+
+            }
             val = matrix.Get(col, row);
+            break;
 
         }
         return val;
@@ -77,10 +85,21 @@ public class HorizontalGroupMatrix : IMatrix
     }
     public void Set(int col, int row, int val)
     {
-        IMatrix matrix = GetNeedMatrix(col, row);
-        if (matrix != null)
+        foreach (IMatrix matrix in _matrixes)
         {
+            if (col >= matrix.NumColumns)
+            {
+                col -= matrix.NumColumns;
+                continue;
+
+            }
+            if (row >= matrix.NumRows)
+            {
+                continue;
+
+            }
             matrix.Set(col, row, val);
+            break;
 
         }
 
@@ -93,29 +112,6 @@ public class HorizontalGroupMatrix : IMatrix
     public IMatrixStrategy GetMatrixStrategy()
     {
         return _strategy;
-
-    }
-    protected IMatrix GetNeedMatrix(int col, int row)
-    {
-        IMatrix _matrix = null;
-        foreach (IMatrix matrix in _matrixes)
-        {
-            if (col <= matrix.NumColumns)
-            {
-                col -= matrix.NumColumns;
-                continue;
-
-            }
-            if (row > matrix.NumRows)
-            {
-                continue;
-
-            }
-            _matrix = matrix;
-            break;
-
-        }
-        return _matrix;
 
     }
 

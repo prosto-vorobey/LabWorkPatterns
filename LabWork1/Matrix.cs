@@ -6,6 +6,7 @@ public interface IMatrix
     int NumRows { get; }
     int Get(int col, int row);
     void Set(int col, int row, int val);
+    void AddMatrix(IMatrix matrix);
     void Draw(IDrawerMatrix drawerMatrix);
     IMatrixStrategy GetMatrixStrategy();
     IMatrix GetComponent();
@@ -89,6 +90,10 @@ public class Matrix : IMatrix
     {
         return this;
 
+    }
+    public void AddMatrix(IMatrix matrix)
+    {
+        throw new NotImplementedException();
     }
 
 }

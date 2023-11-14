@@ -78,5 +78,10 @@ public class DecoratorRenumMatrix : IMatrix
         return _matrix;
 
     }
+    public void AddMatrix(IMatrix matrix)
+    {
+        throw new NotImplementedException();
+
+    }
 
 }

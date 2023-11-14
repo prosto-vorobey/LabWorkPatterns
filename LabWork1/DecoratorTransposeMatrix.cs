@@ -35,5 +35,10 @@
         return _matrix.GetMatrixStrategy();
 
     }
-    
+    public void AddMatrix(IMatrix matrix)
+    {
+        throw new System.NotImplementedException();
+
+    }
+
 }
