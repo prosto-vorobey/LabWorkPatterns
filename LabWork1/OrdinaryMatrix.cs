@@ -1,33 +1,84 @@
 ﻿using System;
+using System.Windows;
 
-public class OrdinaryMatrix : AMatrixStrategy
+public class OrdinaryMatrix : AMatrix
 {
-    private OrdinaryVector[] _vectors;
-    public override IVector[] GetMatrixVector(int cols, int rows)
+    private IVector[] _vectors;
+    private IMatrixStrategy _strategy;
+    public OrdinaryMatrix(int cols, int rows)
     {
+        _strategy = new OrdinaryMatrixStrategy(this);
+        NumColumns = cols;
+        NumRows = rows;
         _vectors = new OrdinaryVector[cols];
         for (int i = 0; i < cols; i++)
         {
             _vectors[i] = new OrdinaryVector(rows);
 
         }
-        return _vectors;
 
     }
-    public override void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
+    public override void Draw(IDrawerMatrix drawerMatrix)
     {
-        for (int i = 0; i < matrix.NumColumns; i++)
+        _strategy.Draw(this, drawerMatrix);
+
+    }
+    public override IMatrixStrategy GetMatrixStrategy()
+    {
+        return _strategy;
+
+    }
+    protected override IVector[] GetVector()
+    {
+       return _vectors;
+
+    }
+    public class OrdinaryMatrixStrategy : IMatrixStrategy
+    {
+        private OrdinaryMatrix _matrix;
+        private IDrawMatrixStrategy _drawStrategy;
+        public OrdinaryMatrixStrategy(OrdinaryMatrix matrix)
         {
-            for (int j = 0; j < matrix.NumRows; j++)
+            _matrix = matrix;
+            _drawStrategy = new OrdinaryDraw(_matrix);
+
+        }
+        public void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
+        {
+            for (int i = 0; i < matrix.NumColumns; i++)
             {
-                int num = matrix.Get(i, j);
-                drawerMatrix.DrawCellBorder(i, j, GetLenghtMaxVal(matrix));
-                drawerMatrix.DrawContent(num.ToString(), i, j, GetLenghtMaxVal(matrix));
+                for (int j = 0; j < matrix.NumRows; j++)
+                {
+                    int num = matrix.Get(i, j);
+                    _drawStrategy.Draw(num, i, j, drawerMatrix);
+
+                }
+
+            }
+            drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, _matrix.GetLenghtMaxVal());
+
+        }
+        public IDrawMatrixStrategy GetDrawStrategy()
+        {
+            return _drawStrategy;
+
+        }
+        public class OrdinaryDraw : IDrawMatrixStrategy
+        {
+            private OrdinaryMatrix _matrix;
+            public OrdinaryDraw(OrdinaryMatrix matrix)
+            {
+                _matrix = matrix;
+
+            }
+            public void Draw(int val, int col, int row, IDrawerMatrix drawerMatrix)
+            {
+                drawerMatrix.DrawCellBorder(col, row, _matrix.GetLenghtMaxVal());
+                drawerMatrix.DrawContent(val.ToString(), col, row, _matrix.GetLenghtMaxVal());
 
             }
 
         }
-        base.Draw(matrix, drawerMatrix);
 
     }
 

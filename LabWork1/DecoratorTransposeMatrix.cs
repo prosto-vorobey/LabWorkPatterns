@@ -25,6 +25,11 @@
         GetMatrixStrategy().Draw(this, drawerMatrix);
 
     }
+    public bool IsComposite()
+    {
+        return _matrix.IsComposite();
+
+    }
     public IMatrix GetComponent()
     {
         return _matrix;
@@ -33,11 +38,6 @@
     public IMatrixStrategy GetMatrixStrategy()
     {
         return _matrix.GetMatrixStrategy();
-
-    }
-    public void AddMatrix(IMatrix matrix)
-    {
-        throw new System.NotImplementedException();
 
     }
 
