@@ -1,48 +1,36 @@
-﻿public class DischargedMatrix : AMatrix
+﻿public class DischargedMatrix : AMatrixStrategy
 {
-    private IDrawer _scheme;
-    private IVector[] _vectors;
-    public DischargedMatrix(int cols, int rows, IDrawer scheme = null)
+    private DischargedVector[] _vectors;
+    public override IVector[] GetMatrixVector(int cols, int rows)
     {
-        NumColumns = cols;
-        NumRows = rows;
-        _scheme = scheme;
-        _vectors = new DischargedVector[NumColumns];
-        for (int i = 0; i < NumColumns; i++)
+        _vectors = new DischargedVector[cols];
+        for (int i = 0; i < cols; i++)
         {
-            _vectors[i] = new DischargedVector(NumRows);
+            _vectors[i] = new DischargedVector(rows);
 
         }
+        return _vectors;
 
     }
-    public override void Draw()
+    public override void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
     {
-        base.Draw();
-        for (int i = 0; i < NumColumns; i++)
+        for (int i = 0; i < matrix.NumColumns; i++)
         {
-            for (int j = 0; j < NumRows; j++)
+            for (int j = 0; j < matrix.NumRows; j++)
             {
-                int num = Get(i, j);
+                int num = matrix.Get(i, j);
+                drawerMatrix.DrawCellBorder(i, j, GetLenghtMaxVal(matrix));
                 if (num == 0)
                 {
                     continue;
 
                 }
-                Content(num.ToString(), i, j, GetLenghtMaxVal());
+                drawerMatrix.DrawContent(num.ToString(), i, j, GetLenghtMaxVal(matrix));
 
             }
 
         }
-
-    }
-    protected override IVector[] GetMatrixVector()
-    {
-        return _vectors;
-
-    }
-    protected override IDrawer GetScheme()
-    {
-        return _scheme;
+        base.Draw(matrix, drawerMatrix);
 
     }
 

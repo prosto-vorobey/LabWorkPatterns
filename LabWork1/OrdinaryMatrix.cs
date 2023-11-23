@@ -1,45 +1,33 @@
 ﻿using System;
 
-public class OrdinaryMatrix : AMatrix
+public class OrdinaryMatrix : AMatrixStrategy
 {
-    private IDrawer _scheme;
     private OrdinaryVector[] _vectors;
-    public OrdinaryMatrix(int cols, int rows, IDrawer scheme = null)
+    public override IVector[] GetMatrixVector(int cols, int rows)
     {
-        NumColumns = cols;
-        NumRows = rows;
-        _scheme = scheme;
-        _vectors = new OrdinaryVector[NumColumns];
-        for (int i = 0; i < NumColumns; i++)
+        _vectors = new OrdinaryVector[cols];
+        for (int i = 0; i < cols; i++)
         {
-            _vectors[i] = new OrdinaryVector(NumRows);
+            _vectors[i] = new OrdinaryVector(rows);
 
         }
+        return _vectors;
 
     }
-    public override void Draw()
+    public override void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
     {
-        base.Draw();
-        for (int i = 0; i < NumColumns; i++)
+        for (int i = 0; i < matrix.NumColumns; i++)
         {
-            for (int j = 0; j < NumRows; j++)
+            for (int j = 0; j < matrix.NumRows; j++)
             {
-                int num = Get(i, j);
-                Content(num.ToString(), i, j, GetLenghtMaxVal());
+                int num = matrix.Get(i, j);
+                drawerMatrix.DrawCellBorder(i, j, GetLenghtMaxVal(matrix));
+                drawerMatrix.DrawContent(num.ToString(), i, j, GetLenghtMaxVal(matrix));
 
             }
 
         }
-
-    }
-    protected override IVector[] GetMatrixVector()
-    {
-        return _vectors;
-
-    }
-    protected override IDrawer GetScheme()
-    {
-        return _scheme;
+        base.Draw(matrix, drawerMatrix);
 
     }
 
