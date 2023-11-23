@@ -95,6 +95,7 @@
     <Compile Include="GraphicsDisplay.cs" />
     <Compile Include="ConsolePrimitives.cs" />
     <Compile Include="HorizontalGroupMatrix.cs" />
+    <Compile Include="IDrawMatrixScheme.cs" />
     <Compile Include="IMatrixStrategy.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">

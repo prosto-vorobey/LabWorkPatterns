@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using System.Drawing;
 using LabWork1;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 public partial class ClientForm : Form
 {
@@ -605,35 +604,31 @@ public partial class ClientForm : Form
     }
     private void InitMatrix(int variant)
     {
-        IMatrixStrategy matrixStrategy;
         switch (variant)
         {
             case 0:
-                matrixStrategy = new OrdinaryMatrix();
-                _matrix = new Matrix(matrixStrategy, 10, 5);
+                _matrix = new OrdinaryMatrix(10, 5);
                 MatrixInitiator.FillMatrix(_matrix, _rnd.Next(1, 51), _rnd.Next(1, 999));
                 break;
             case 1:
-                matrixStrategy = new DischargedMatrix();
-                _matrix = new Matrix(matrixStrategy, 5, 10);
+                _matrix = new DischargedMatrix(5, 10);
                 MatrixInitiator.FillMatrix(_matrix, _rnd.Next(1, 51), _rnd.Next(1, 999));
                 break;
             case 2:
-                _matrix = new HorizontalGroupMatrix();
-                matrixStrategy = new OrdinaryMatrix();
-                IMatrix matrix1 = new Matrix(matrixStrategy, 2, 2);
-                IMatrix matrix2 = new Matrix(matrixStrategy, 1, 5);
-                matrixStrategy = new DischargedMatrix();
-                IMatrix matrix3 = new Matrix(matrixStrategy, 3, 3);
-                IMatrix matrix4 = new Matrix(matrixStrategy, 1, 1);
+                HorizontalGroupMatrix compositeMatrix = new HorizontalGroupMatrix();
+                IMatrix matrix1 = new OrdinaryMatrix(2, 2);
+                IMatrix matrix2 = new OrdinaryMatrix(1, 5);
+                IMatrix matrix3 = new DischargedMatrix(3, 3);
+                IMatrix matrix4 = new DischargedMatrix(1, 1);
                 MatrixInitiator.FillMatrix(matrix1, _rnd.Next(1, 3), _rnd.Next(1, 999));
                 MatrixInitiator.FillMatrix(matrix2, _rnd.Next(1, 3), _rnd.Next(1, 999));
                 MatrixInitiator.FillMatrix(matrix3, _rnd.Next(1, 5), _rnd.Next(1, 999));
                 MatrixInitiator.FillMatrix(matrix4, 1, _rnd.Next(1, 999));
-                _matrix.AddMatrix(matrix1);
-                _matrix.AddMatrix(matrix2);
-                _matrix.AddMatrix(matrix3);
-                _matrix.AddMatrix(matrix4);
+                compositeMatrix.AddMatrix(matrix1);
+                compositeMatrix.AddMatrix(matrix2);
+                compositeMatrix.AddMatrix(matrix3);
+                compositeMatrix.AddMatrix(matrix4);
+                _matrix = compositeMatrix;
                 return;
 
         }

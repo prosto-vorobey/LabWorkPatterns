@@ -6,24 +6,14 @@ public interface IMatrix
     int NumRows { get; }
     int Get(int col, int row);
     void Set(int col, int row, int val);
-    void AddMatrix(IMatrix matrix);
     void Draw(IDrawerMatrix drawerMatrix);
+    bool IsComposite();
     IMatrixStrategy GetMatrixStrategy();
     IMatrix GetComponent();
 
 }
-public class Matrix : IMatrix
+public abstract class AMatrix : IMatrix
 {
-    private IMatrixStrategy _strategy;
-    private IVector[] _vectors;
-    public Matrix (IMatrixStrategy matrixStrategy, int cols, int rows)
-    {
-        _strategy = matrixStrategy;
-        NumColumns = cols;
-        NumRows = rows;
-        _vectors = _strategy.GetMatrixVector(NumColumns, NumRows);
-
-    }
     public int NumColumns
     {
         get;
@@ -36,7 +26,7 @@ public class Matrix : IMatrix
         protected set;
 
     }
-    public virtual void Set(int col, int row, int val)
+    public void Set(int col, int row, int val)
     {
         try
         {
@@ -50,7 +40,7 @@ public class Matrix : IMatrix
                 throw new IndexOutOfRangeException("Введённое положение строки выходит за границы матрицы.");
 
             }
-            _vectors[col].Set(row, val);
+            GetVector()[col].Set(row, val);
 
         }
         catch (Exception ex)
@@ -65,7 +55,7 @@ public class Matrix : IMatrix
         int val = 0;
         try
         {
-            val = _vectors[col].Get(row);
+            val = GetVector()[col].Get(row);
 
         }
         catch (Exception ex)
@@ -76,24 +66,25 @@ public class Matrix : IMatrix
         return val;
 
     }
-    public void Draw(IDrawerMatrix drawerMatrix)
+    public abstract void Draw(IDrawerMatrix drawerMatrix);
+    public bool IsComposite()
     {
-        _strategy.Draw(this, drawerMatrix);
+        return false;
 
     }
-    public IMatrixStrategy GetMatrixStrategy()
-    {
-        return _strategy;
-
-    }
+    public abstract IMatrixStrategy GetMatrixStrategy();
     public IMatrix GetComponent()
     {
         return this;
 
     }
-    public void AddMatrix(IMatrix matrix)
+    protected abstract IVector[] GetVector();
+    protected int GetLenghtMaxVal()
     {
-        throw new NotImplementedException();
+        int valMax = new MatrixStatistic(this).ValMax;
+        int maxValLenght = NumLenght.GetLenght(valMax);
+        return maxValLenght;
+
     }
 
 }
