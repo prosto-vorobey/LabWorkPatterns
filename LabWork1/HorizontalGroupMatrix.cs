@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class HorizontalGroupMatrix : IMatrix
 {
     private List<IMatrix> _matrixes = new List<IMatrix>();
-    private IMatrixStrategy _strategy;
+    private IMatrixDrawStrategy _strategy;
     public HorizontalGroupMatrix()
     {
-        _strategy = new CompositeMatrix(this);
+        _strategy = new CompositeMatrixDrawStrategy(this);
 
     }
     public int NumColumns
@@ -107,45 +108,72 @@ public class HorizontalGroupMatrix : IMatrix
         return this;
 
     }
-    public IMatrixStrategy GetMatrixStrategy()
+    public IMatrixDrawStrategy GetMatrixStrategy()
     {
         return _strategy;
 
     }
-    public class CompositeMatrix : IMatrixStrategy
+    protected int GetLenghtMaxVal(IMatrix matrix)
+    {
+        int valMax = new MatrixStatistic(matrix).ValMax;
+        int maxValLenght = NumLenght.GetLenght(valMax);
+        return maxValLenght;
+
+    }
+    public class CompositeMatrixDrawStrategy : IMatrixDrawStrategy
     {
         private HorizontalGroupMatrix _compositeMatrix;
-        public CompositeMatrix(HorizontalGroupMatrix compositeMatrix)
+        public CompositeMatrixDrawStrategy(HorizontalGroupMatrix compositeMatrix)
         {
             _compositeMatrix = compositeMatrix;
 
         }
         public void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
         {
-            int shiftCol = 0;
-            int shiftRow = 0;
+            //int shiftCol = 0;
+            //int shiftRow = 0;
+            int corX = -1;
+            int corY = 0;
             IDrawerMatrix _drawerMatrix = drawerMatrix;
             foreach (IMatrix someMatrix in _compositeMatrix._matrixes)
             {
+                //drawerMatrix = new DecorateShiftRightDrawerMatrix(drawerMatrix, shiftCol, shiftRow);
                 for (int i = 0; i < someMatrix.NumColumns; i++)
                 {
-                    for (int j = 0; j < someMatrix.NumRows; j++)
+                    corX ++;
+                    int curRow = 0;
+                    while(curRow != matrix.NumRows)
                     {
-                        int num = matrix.Get(i, j);
-                        drawerMatrix = new DecorateShiftRightDrawerMatrix(drawerMatrix, shiftCol, shiftRow);
-                        someMatrix.GetMatrixStrategy().GetDrawStrategy().Draw(num, i, j, drawerMatrix);
+                        corY = curRow;
+                        int num = matrix.Get(corX, corY);
+                        if (corY < someMatrix.NumRows)
+                        {
+                            someMatrix.GetMatrixStrategy().GetDrawElementStrategy().Draw(num, corX, corY, drawerMatrix);
+
+                        }
+                        else
+                        {
+                            drawerMatrix.DrawCellBorder(corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
+                            if (num != 0)
+                            {
+                                drawerMatrix.DrawContent(num.ToString(), corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
+
+                            }
+
+                        }
+                        curRow++;
 
                     }
 
                 }
                 //Разобраться со смещением при разных размерах содержимого матрицы
-                shiftCol = someMatrix.NumColumns;
+                //shiftCol = someMatrix.NumColumns;
 
             }
-            //drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, GetLenghtMaxVal());
+            _drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, _compositeMatrix.GetLenghtMaxVal(_compositeMatrix));
 
         }
-        public IDrawMatrixStrategy GetDrawStrategy()
+        public IMatrixDrawElementStrategy GetDrawElementStrategy()
         {
             throw new System.NotImplementedException();
 

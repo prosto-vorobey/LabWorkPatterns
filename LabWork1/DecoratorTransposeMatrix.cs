@@ -35,7 +35,7 @@
         return _matrix;
 
     }
-    public IMatrixStrategy GetMatrixStrategy()
+    public IMatrixDrawStrategy GetMatrixStrategy()
     {
         return _matrix.GetMatrixStrategy();
 

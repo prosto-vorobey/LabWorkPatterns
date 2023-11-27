@@ -73,7 +73,7 @@ public class DecoratorRenumMatrix : IMatrix
         return _matrix.IsComposite();
 
     }
-    public IMatrixStrategy GetMatrixStrategy()
+    public IMatrixDrawStrategy GetMatrixStrategy()
     {
         return _matrix.GetMatrixStrategy();
 
