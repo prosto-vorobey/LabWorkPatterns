@@ -715,7 +715,8 @@ public partial class ClientForm : Form
     {
         if (_matrix != null && Drawer != null)
         {
-            _matrix = new DecoratorRenumMatrix(_matrix);
+            //_matrix = new DecoratorRenumMatrix(_matrix);
+            _matrix = new DecoratorTransposeMatrix(_matrix);
 
         }
         DrawMatrix(_matrix);
