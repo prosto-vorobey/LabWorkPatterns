@@ -67,7 +67,7 @@ public class HorizontalGroupMatrix : IMatrix
             }
             if (row >= matrix.NumRows)
             {
-                continue;
+                break;
 
             }
             val = matrix.Get(col, row);
@@ -89,7 +89,7 @@ public class HorizontalGroupMatrix : IMatrix
             }
             if (row >= matrix.NumRows)
             {
-                continue;
+                break;
 
             }
             matrix.Set(col, row, val);
@@ -130,21 +130,19 @@ public class HorizontalGroupMatrix : IMatrix
         }
         public void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
         {
-            //int shiftCol = 0;
+            /*//int shiftCol = 0;
             //int shiftRow = 0;
-            int corX = -1;
+            int corX = 0;
             int corY = 0;
-            IDrawerMatrix _drawerMatrix = drawerMatrix;
+            //IDrawerMatrix _drawerMatrix = drawerMatrix;
             foreach (IMatrix someMatrix in _compositeMatrix._matrixes)
             {
                 //drawerMatrix = new DecorateShiftRightDrawerMatrix(drawerMatrix, shiftCol, shiftRow);
                 for (int i = 0; i < someMatrix.NumColumns; i++)
                 {
-                    corX ++;
-                    int curRow = 0;
-                    while(curRow != matrix.NumRows)
+                    corY = 0;
+                    while(corY != matrix.NumRows)
                     {
-                        corY = curRow;
                         int num = matrix.Get(corX, corY);
                         if (corY < someMatrix.NumRows)
                         {
@@ -153,24 +151,64 @@ public class HorizontalGroupMatrix : IMatrix
                         }
                         else
                         {
-                            drawerMatrix.DrawCellBorder(corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
-                            if (num != 0)
-                            {
-                                drawerMatrix.DrawContent(num.ToString(), corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
+                            //drawerMatrix.DrawCellBorder(corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
+                            //if (num != 0)
+                            //{
+                            //    someMatrix.GetMatrixStrategy().GetDrawElementStrategy().Draw(num, corX, corY, drawerMatrix);
+                            //    //drawerMatrix.DrawContent(num.ToString(), corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
 
-                            }
+                            //}
 
                         }
-                        curRow++;
+                        corY++;
 
                     }
+                    corX++;
 
                 }
                 //Разобраться со смещением при разных размерах содержимого матрицы
                 //shiftCol = someMatrix.NumColumns;
 
+            }*/
+            for (int i = 0; i < matrix.NumColumns; i++)
+            {
+                for (int j = 0; j < matrix.NumRows; j++)
+                {
+                    int num = matrix.Get(i, j);
+                    IMatrixDrawElementStrategy drawStrategy = GetDrawElementStrategy(i, j);
+                    if (drawStrategy != null)
+                    {
+                        drawStrategy.Draw(num, i, j, drawerMatrix);
+
+                    }
+
+                }
+
             }
-            _drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, _compositeMatrix.GetLenghtMaxVal(_compositeMatrix));
+            drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, _compositeMatrix.GetLenghtMaxVal(_compositeMatrix));
+
+        }
+        private IMatrixDrawElementStrategy GetDrawElementStrategy (int col, int row)
+        {
+            IMatrixDrawElementStrategy drawStrategy = null;
+            foreach (IMatrix matrix in _compositeMatrix._matrixes)
+            {
+                if (col >= matrix.NumColumns)
+                {
+                    col -= matrix.NumColumns;
+                    continue;
+
+                }
+                if (row >= matrix.NumRows)
+                {
+                    break;
+
+                }
+                drawStrategy = matrix.GetMatrixStrategy().GetDrawElementStrategy();
+                break;
+
+            }
+            return drawStrategy;
 
         }
         public IMatrixDrawElementStrategy GetDrawElementStrategy()
