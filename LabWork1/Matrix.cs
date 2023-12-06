@@ -6,15 +6,26 @@ public interface IMatrix
     int NumRows { get; }
     int Get(int col, int row);
     void Set(int col, int row, int val);
-    void Accept(IMatrixVisitor visitor);
-    ICompositeMatrix GetComposite();
+    void Draw(IDrawerMatrix drawerMatrix);
+    bool IsComposite();
+    IMatrixDrawElementStrategy GetDrawElementStrategy();
     IMatrix GetComponent();
 
 }
 public abstract class AMatrix : IMatrix
 {
-    public int NumColumns { get; protected set; }
-    public int NumRows { get; protected set; }
+    public int NumColumns
+    {
+        get;
+        protected set;
+
+    }
+    public int NumRows
+    {
+        get;
+        protected set;
+
+    }
     public void Set(int col, int row, int val)
     {
         try
@@ -55,12 +66,13 @@ public abstract class AMatrix : IMatrix
         return val;
 
     }
-    public abstract void Accept(IMatrixVisitor drawer);
-    public ICompositeMatrix GetComposite()
+    public abstract void Draw(IDrawerMatrix drawerMatrix);
+    public bool IsComposite()
     {
-        return null;
+        return false;
 
     }
+    public abstract IMatrixDrawElementStrategy GetDrawElementStrategy();
     public IMatrix GetComponent()
     {
         return this;

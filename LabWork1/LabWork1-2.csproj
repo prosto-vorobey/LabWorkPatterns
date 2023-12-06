@@ -72,15 +72,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DischargedMatrixDraw.cs" />
-    <Compile Include="DrawerShiftDownDecorator.cs" />
-    <Compile Include="DrawVerticalGroupMatrixVisitor.cs" />
-    <Compile Include="DisplayFactory.cs" />
-    <Compile Include="DrawHorizontalGroupMatrixVisitor.cs" />
-    <Compile Include="Observer.cs" />
-    <Compile Include="MatrixDraw.cs" />
-    <Compile Include="MatrixDrawElementStrategy.cs" />
-    <Compile Include="Drawer.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="ClientSettingsForm.cs">
       <SubType>Form</SubType>
@@ -91,34 +82,30 @@
     <Compile Include="ColorFormStyle.cs" />
     <Compile Include="CompositeMatrix.cs" />
     <Compile Include="ConsoleDisplay.cs" />
-    <Compile Include="DrawLeafMatrixVisitor.cs" />
-    <Compile Include="MatrixDrawShiftDownDecorator.cs" />
-    <Compile Include="MatrixVisitorRenumDecorator.cs" />
-    <Compile Include="IIterable.cs" />
-    <Compile Include="IIteratorMatrix.cs" />
-    <Compile Include="MatrixRenumDecorator.cs" />
-    <Compile Include="ConsoleDoubleLineDecorator.cs" />
-    <Compile Include="MatrixTransposeDecorator.cs" />
+    <Compile Include="DecorateShiftRightDrawerMatrix.cs" />
+    <Compile Include="DecoratorRenumMatrix.cs" />
+    <Compile Include="DecoratorConsoleDoubleLine.cs" />
+    <Compile Include="DecoratorTransposeMatrix.cs" />
     <Compile Include="DischargedMatrix.cs" />
     <Compile Include="DischargedVector.cs" />
-    <Compile Include="MatrixVisitor.cs" />
-    <Compile Include="Display.cs" />
+    <Compile Include="DrawerMatrix.cs" />
+    <Compile Include="DrawerDisplay.cs" />
     <Compile Include="DrawerWithBorder.cs" />
     <Compile Include="DrawerWithoutBorder.cs" />
     <Compile Include="GraphicsDisplay.cs" />
     <Compile Include="ConsolePrimitives.cs" />
     <Compile Include="HorizontalGroupMatrix.cs" />
+    <Compile Include="MatrixDrawElementStrategy.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MatrixInitiator.cs" />
     <Compile Include="MatrixStatistic.cs" />
-    <Compile Include="MatrixMaxVal.cs" />
+    <Compile Include="MaxValMatrix.cs" />
     <Compile Include="MessageWarning.cs" />
     <Compile Include="NumLenght.cs" />
     <Compile Include="OrdinaryMatrix.cs" />
-    <Compile Include="OrdinaryMatrixDraw.cs" />
     <Compile Include="OrdinaryVector.cs" />
     <Compile Include="GraphicsPrimitives.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,10 +114,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="MatrixSymmetry.cs" />
-    <Compile Include="MatrixVisitorTransposeDecorator.cs" />
-    <Compile Include="MatrixDrawShiftRightDecorator.cs" />
-    <Compile Include="Subject.cs" />
+    <Compile Include="SymmetryMatrix.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>
   <ItemGroup>
