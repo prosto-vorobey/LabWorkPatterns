@@ -4,10 +4,10 @@ using System.Collections.Generic;
 public class HorizontalGroupMatrix : IMatrix
 {
     private List<IMatrix> _matrixes = new List<IMatrix>();
-    private IMatrixDrawStrategy _strategy;
+    private IMatrixDrawElementStrategy _strategy;
     public HorizontalGroupMatrix()
     {
-        _strategy = new CompositeMatrixDrawStrategy(this);
+        _strategy = new CompositeMatrixDraw(this);
 
     }
     public int NumColumns
@@ -51,7 +51,17 @@ public class HorizontalGroupMatrix : IMatrix
     }
     public void Draw(IDrawerMatrix drawerMatrix)
     {
-        _strategy.Draw(this, drawerMatrix);
+        for (int i = 0; i < NumColumns; i++)
+        {
+            for (int j = 0; j < NumRows; j++)
+            {
+                int num = Get(i, j);
+                _strategy.Draw(num, i, j, drawerMatrix);
+
+            }
+
+        }
+        drawerMatrix.DrawBorder(NumColumns, NumRows, MaxValMatrix.GetLenghtMaxVal(this));
 
     }
     public int Get(int col, int row)
@@ -108,87 +118,31 @@ public class HorizontalGroupMatrix : IMatrix
         return this;
 
     }
-    public IMatrixDrawStrategy GetMatrixStrategy()
+    public IMatrixDrawElementStrategy GetDrawElementStrategy()
     {
         return _strategy;
 
     }
-    protected int GetLenghtMaxVal(IMatrix matrix)
-    {
-        int valMax = new MatrixStatistic(matrix).ValMax;
-        int maxValLenght = NumLenght.GetLenght(valMax);
-        return maxValLenght;
-
-    }
-    public class CompositeMatrixDrawStrategy : IMatrixDrawStrategy
+    public class CompositeMatrixDraw : IMatrixDrawElementStrategy
     {
         private HorizontalGroupMatrix _compositeMatrix;
-        public CompositeMatrixDrawStrategy(HorizontalGroupMatrix compositeMatrix)
+        public CompositeMatrixDraw(HorizontalGroupMatrix compositeMatrix)
         {
             _compositeMatrix = compositeMatrix;
 
         }
-        public void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
+        public void Draw(int val, int col, int row, IDrawerMatrix drawerMatrix)
         {
-            /*//int shiftCol = 0;
-            //int shiftRow = 0;
-            int corX = 0;
-            int corY = 0;
-            //IDrawerMatrix _drawerMatrix = drawerMatrix;
-            foreach (IMatrix someMatrix in _compositeMatrix._matrixes)
+            IMatrixDrawElementStrategy drawStrategy = GetDrawElementStrategy(col, row);
+
+            if (drawStrategy != null)
             {
-                //drawerMatrix = new DecorateShiftRightDrawerMatrix(drawerMatrix, shiftCol, shiftRow);
-                for (int i = 0; i < someMatrix.NumColumns; i++)
-                {
-                    corY = 0;
-                    while(corY != matrix.NumRows)
-                    {
-                        int num = matrix.Get(corX, corY);
-                        if (corY < someMatrix.NumRows)
-                        {
-                            someMatrix.GetMatrixStrategy().GetDrawElementStrategy().Draw(num, corX, corY, drawerMatrix);
-
-                        }
-                        else
-                        {
-                            //drawerMatrix.DrawCellBorder(corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
-                            //if (num != 0)
-                            //{
-                            //    someMatrix.GetMatrixStrategy().GetDrawElementStrategy().Draw(num, corX, corY, drawerMatrix);
-                            //    //drawerMatrix.DrawContent(num.ToString(), corX, corY, _compositeMatrix.GetLenghtMaxVal(someMatrix));
-
-                            //}
-
-                        }
-                        corY++;
-
-                    }
-                    corX++;
-
-                }
-                //Разобраться со смещением при разных размерах содержимого матрицы
-                //shiftCol = someMatrix.NumColumns;
-
-            }*/
-            for (int i = 0; i < matrix.NumColumns; i++)
-            {
-                for (int j = 0; j < matrix.NumRows; j++)
-                {
-                    int num = matrix.Get(i, j);
-                    IMatrixDrawElementStrategy drawStrategy = GetDrawElementStrategy(i, j);
-                    if (drawStrategy != null)
-                    {
-                        drawStrategy.Draw(num, i, j, drawerMatrix);
-
-                    }
-
-                }
+                drawStrategy.Draw(val, col, row, drawerMatrix);
 
             }
-            drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, _compositeMatrix.GetLenghtMaxVal(_compositeMatrix));
 
         }
-        private IMatrixDrawElementStrategy GetDrawElementStrategy (int col, int row)
+        private IMatrixDrawElementStrategy GetDrawElementStrategy(int col, int row)
         {
             IMatrixDrawElementStrategy drawStrategy = null;
             foreach (IMatrix matrix in _compositeMatrix._matrixes)
@@ -204,16 +158,11 @@ public class HorizontalGroupMatrix : IMatrix
                     break;
 
                 }
-                drawStrategy = matrix.GetMatrixStrategy().GetDrawElementStrategy();
+                drawStrategy = matrix.GetDrawElementStrategy();
                 break;
 
             }
             return drawStrategy;
-
-        }
-        public IMatrixDrawElementStrategy GetDrawElementStrategy()
-        {
-            throw new System.NotImplementedException();
 
         }
 

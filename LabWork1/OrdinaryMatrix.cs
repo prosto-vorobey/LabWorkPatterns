@@ -4,10 +4,10 @@ using System.Windows;
 public class OrdinaryMatrix : AMatrix
 {
     private IVector[] _vectors;
-    private IMatrixStrategy _strategy;
+    private IMatrixDrawElementStrategy _strategy;
     public OrdinaryMatrix(int cols, int rows)
     {
-        _strategy = new OrdinaryMatrixStrategy(this);
+        _strategy = new OrdinaryDraw(this);
         NumColumns = cols;
         NumRows = rows;
         _vectors = new OrdinaryVector[cols];
@@ -20,10 +20,20 @@ public class OrdinaryMatrix : AMatrix
     }
     public override void Draw(IDrawerMatrix drawerMatrix)
     {
-        _strategy.Draw(this, drawerMatrix);
+        for (int i = 0; i < NumColumns; i++)
+        {
+            for (int j = 0; j < NumRows; j++)
+            {
+                int num = Get(i, j);
+                _strategy.Draw(num, i, j, drawerMatrix);
+
+            }
+
+        }
+        drawerMatrix.DrawBorder(NumColumns, NumRows, MaxValMatrix.GetLenghtMaxVal(this));
 
     }
-    public override IMatrixStrategy GetMatrixStrategy()
+    public override IMatrixDrawElementStrategy GetDrawElementStrategy()
     {
         return _strategy;
 
@@ -33,50 +43,18 @@ public class OrdinaryMatrix : AMatrix
        return _vectors;
 
     }
-    public class OrdinaryMatrixStrategy : IMatrixStrategy
+    public class OrdinaryDraw : IMatrixDrawElementStrategy
     {
         private OrdinaryMatrix _matrix;
-        private IDrawMatrixStrategy _drawStrategy;
-        public OrdinaryMatrixStrategy(OrdinaryMatrix matrix)
+        public OrdinaryDraw(OrdinaryMatrix matrix)
         {
             _matrix = matrix;
-            _drawStrategy = new OrdinaryDraw(_matrix);
 
         }
-        public void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
+        public void Draw(int val, int col, int row, IDrawerMatrix drawerMatrix)
         {
-            for (int i = 0; i < matrix.NumColumns; i++)
-            {
-                for (int j = 0; j < matrix.NumRows; j++)
-                {
-                    int num = matrix.Get(i, j);
-                    _drawStrategy.Draw(num, i, j, drawerMatrix);
-
-                }
-
-            }
-            drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, _matrix.GetLenghtMaxVal());
-
-        }
-        public IDrawMatrixStrategy GetDrawStrategy()
-        {
-            return _drawStrategy;
-
-        }
-        public class OrdinaryDraw : IDrawMatrixStrategy
-        {
-            private OrdinaryMatrix _matrix;
-            public OrdinaryDraw(OrdinaryMatrix matrix)
-            {
-                _matrix = matrix;
-
-            }
-            public void Draw(int val, int col, int row, IDrawerMatrix drawerMatrix)
-            {
-                drawerMatrix.DrawCellBorder(col, row, _matrix.GetLenghtMaxVal());
-                drawerMatrix.DrawContent(val.ToString(), col, row, _matrix.GetLenghtMaxVal());
-
-            }
+            drawerMatrix.DrawCellBorder(col, row, MaxValMatrix.GetLenghtMaxVal(_matrix));
+            drawerMatrix.DrawContent(val.ToString(), col, row, MaxValMatrix.GetLenghtMaxVal(_matrix));
 
         }
 

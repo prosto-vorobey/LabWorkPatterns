@@ -95,14 +95,14 @@
     <Compile Include="GraphicsDisplay.cs" />
     <Compile Include="ConsolePrimitives.cs" />
     <Compile Include="HorizontalGroupMatrix.cs" />
-    <Compile Include="IDrawMatrixScheme.cs" />
-    <Compile Include="IMatrixStrategy.cs" />
+    <Compile Include="MatrixDrawElementStrategy.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MatrixInitiator.cs" />
     <Compile Include="MatrixStatistic.cs" />
+    <Compile Include="MaxValMatrix.cs" />
     <Compile Include="MessageWarning.cs" />
     <Compile Include="NumLenght.cs" />
     <Compile Include="OrdinaryMatrix.cs" />

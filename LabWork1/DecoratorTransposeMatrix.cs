@@ -22,7 +22,18 @@
     }
     public void Draw(IDrawerMatrix drawerMatrix)
     {
-        GetMatrixStrategy().Draw(this, drawerMatrix);
+        for (int i = 0; i < NumColumns; i++)
+        {
+            for (int j = 0; j < NumRows; j++)
+            {
+                //Сначала запрашиваем стратегию матрицы для старых координат, потом отрисовываем в новых. Подумать как! 
+                int num = Get(i, j);
+                GetDrawElementStrategy().Draw(num, i, j, drawerMatrix);
+
+            }
+
+        }
+        drawerMatrix.DrawBorder(NumColumns, NumRows, MaxValMatrix.GetLenghtMaxVal(this));
 
     }
     public bool IsComposite()
@@ -35,9 +46,9 @@
         return _matrix;
 
     }
-    public IMatrixStrategy GetMatrixStrategy()
+    public IMatrixDrawElementStrategy GetDrawElementStrategy()
     {
-        return _matrix.GetMatrixStrategy();
+        return _matrix.GetDrawElementStrategy();
 
     }
 

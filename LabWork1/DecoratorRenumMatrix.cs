@@ -64,7 +64,18 @@ public class DecoratorRenumMatrix : IMatrix
     }
     public void Draw(IDrawerMatrix drawerMatrix)
     {
-        GetMatrixStrategy().Draw(this, drawerMatrix);
+        for (int i = 0; i < NumColumns; i++)
+        {
+            for (int j = 0; j < NumRows; j++)
+            {
+                //Сначала запрашиваем стратегию матрицы для старых координат, потом отрисовываем в новых. Подумать как! 
+                int num = Get(i, j);
+                GetDrawElementStrategy().Draw(num, i, j, drawerMatrix);
+
+            }
+
+        }
+        drawerMatrix.DrawBorder(NumColumns, NumRows, MaxValMatrix.GetLenghtMaxVal(this));
         MessageWarning.MessageOutRange($"Перенумерованы ячейки: {_col1 + 1}, {_row1 + 1}({_matrix.Get(_col1, _row1)}) и {_col2 + 1}, {_row2 + 1}({Get(_col1, _row1)})");
 
     }
@@ -73,9 +84,9 @@ public class DecoratorRenumMatrix : IMatrix
         return _matrix.IsComposite();
 
     }
-    public IMatrixStrategy GetMatrixStrategy()
+    public IMatrixDrawElementStrategy GetDrawElementStrategy()
     {
-        return _matrix.GetMatrixStrategy();
+        return _matrix.GetDrawElementStrategy();
 
     }
     public IMatrix GetComponent()
