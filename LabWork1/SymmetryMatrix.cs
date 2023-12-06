@@ -35,7 +35,7 @@ public class SymmetryMatrix : AMatrix
         throw new NotImplementedException();
     }
 
-    public override IMatrixDrawStrategy GetMatrixStrategy()
+    public override IMatrixDrawElementStrategy GetDrawElementStrategy()
     {
         throw new NotImplementedException();
     }

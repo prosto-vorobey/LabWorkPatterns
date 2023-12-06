@@ -96,13 +96,13 @@
     <Compile Include="ConsolePrimitives.cs" />
     <Compile Include="HorizontalGroupMatrix.cs" />
     <Compile Include="MatrixDrawElementStrategy.cs" />
-    <Compile Include="MatrixDrawStrategy.cs" />
     <Compile Include="Matrix.cs" />
     <Compile Include="ClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MatrixInitiator.cs" />
     <Compile Include="MatrixStatistic.cs" />
+    <Compile Include="MaxValMatrix.cs" />
     <Compile Include="MessageWarning.cs" />
     <Compile Include="NumLenght.cs" />
     <Compile Include="OrdinaryMatrix.cs" />

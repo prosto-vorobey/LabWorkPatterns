@@ -8,7 +8,7 @@ public interface IMatrix
     void Set(int col, int row, int val);
     void Draw(IDrawerMatrix drawerMatrix);
     bool IsComposite();
-    IMatrixDrawStrategy GetMatrixStrategy();
+    IMatrixDrawElementStrategy GetDrawElementStrategy();
     IMatrix GetComponent();
 
 }
@@ -72,51 +72,12 @@ public abstract class AMatrix : IMatrix
         return false;
 
     }
-    public abstract IMatrixDrawStrategy GetMatrixStrategy();
+    public abstract IMatrixDrawElementStrategy GetDrawElementStrategy();
     public IMatrix GetComponent()
     {
         return this;
 
     }
     protected abstract IVector[] GetVector();
-    protected int GetLenghtMaxVal()
-    {
-        int valMax = new MatrixStatistic(this).ValMax;
-        int maxValLenght = NumLenght.GetLenght(valMax);
-        return maxValLenght;
-
-    }
-    public class LeafMatrixDrawStrategy : IMatrixDrawStrategy
-    {
-        private AMatrix _matrix;
-        private IMatrixDrawElementStrategy _drawStrategy;
-        public LeafMatrixDrawStrategy(AMatrix matrix, IMatrixDrawElementStrategy drawStrategy)
-        {
-            _matrix = matrix;
-            _drawStrategy = drawStrategy;
-
-        }
-        public void Draw(IMatrix matrix, IDrawerMatrix drawerMatrix)
-        {
-            for (int i = 0; i < matrix.NumColumns; i++)
-            {
-                for (int j = 0; j < matrix.NumRows; j++)
-                {
-                    int num = matrix.Get(i, j);
-                    _drawStrategy.Draw(num, i, j, drawerMatrix);
-
-                }
-
-            }
-            drawerMatrix.DrawBorder(matrix.NumColumns, matrix.NumRows, _matrix.GetLenghtMaxVal());
-
-        }
-        public IMatrixDrawElementStrategy GetDrawElementStrategy()
-        {
-            return _drawStrategy;
-
-        }
-
-    }
 
 }
