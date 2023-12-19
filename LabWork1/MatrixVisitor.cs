@@ -6,25 +6,29 @@
 }
 public abstract class ADrawMatrixVisitor : IMatrixVisitor
 {
+    private IDrawer _drawer;
     abstract public void VisitDrawDischargedMatrix(IMatrix dischargedMatrix);
     abstract public void VisitDrawOrdinaryMatrix(IMatrix ordinaryMatrix);
     abstract protected IDrawer GetDrawer();
     protected void DrawContent(string cont, int col, int row, int maxValLength)
     {
-        GetDrawer().DrawContent(cont, col, row, maxValLength);
+        _drawer = GetDrawer();
+        _drawer.DrawContent(cont, col, row, maxValLength);
 
     }
     protected void DrawCellBorder(int col, int row, int maxValLength)
     {
-        GetDrawer().DrawCellBorder(col, row, maxValLength);
+        _drawer = GetDrawer();
+        _drawer.DrawCellBorder(col, row, maxValLength);
 
     }
     protected void DrawBorder(int numCols, int numRows, int maxValLength)
     {
-        GetDrawer().DrawBorder(numCols, numRows, maxValLength);
+        _drawer = GetDrawer();
+        _drawer.DrawBorder(numCols, numRows, maxValLength);
 
     }
-    public class DrawOrdinaryMatrixElementStrategy : IDrawMatrixVisitorStrategy
+    public class DrawOrdinaryMatrixElementStrategy : IDrawMatrixVisitorElementStrategy
     {
         private ADrawMatrixVisitor _visitor;
         public DrawOrdinaryMatrixElementStrategy(ADrawMatrixVisitor visitor)
@@ -32,17 +36,16 @@ public abstract class ADrawMatrixVisitor : IMatrixVisitor
             _visitor = visitor;
 
         }
-        public void Draw(int col, int row, IMatrix matrix)
+        public void Draw(int col, int row, int num, IMatrix matrix)
         {
             int maxLenght = MatrixMaxVal.GetLenghtMaxVal(matrix);
-            int num = matrix.Get(col, row);
             _visitor.DrawCellBorder(col, row, maxLenght);
             _visitor.DrawContent(num.ToString(), col, row, maxLenght);
 
         }
 
     }
-    public class DrawDischargedMatrixElementStrategy : IDrawMatrixVisitorStrategy
+    public class DrawDischargedMatrixElementStrategy : IDrawMatrixVisitorElementStrategy
     {
         private ADrawMatrixVisitor _visitor;
         public DrawDischargedMatrixElementStrategy(ADrawMatrixVisitor visitor)
@@ -50,10 +53,9 @@ public abstract class ADrawMatrixVisitor : IMatrixVisitor
             _visitor = visitor;
 
         }
-        public void Draw(int col, int row, IMatrix matrix)
+        public void Draw(int col, int row, int num, IMatrix matrix)
         {
             int maxLenght = MatrixMaxVal.GetLenghtMaxVal(matrix);
-            int num = matrix.Get(col, row);
             _visitor.DrawCellBorder(col, row, maxLenght);
             if (num == 0)
             {

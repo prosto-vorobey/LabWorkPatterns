@@ -1,5 +1,5 @@
-﻿public interface IDrawMatrixVisitorStrategy
+﻿public interface IDrawMatrixVisitorElementStrategy
 {
-    void Draw(int col, int wor, IMatrix matrix);
+    void Draw(int col, int row, int num, IMatrix matrix);
 
 }
