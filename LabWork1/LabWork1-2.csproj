@@ -72,10 +72,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DischargedMatrixDraw.cs" />
     <Compile Include="DrawVerticalGroupMatrixVisitor.cs" />
     <Compile Include="DisplayFactory.cs" />
     <Compile Include="DrawHorizontalGroupMatrixVisitor.cs" />
-    <Compile Include="MatrixVisitorStrategy.cs" />
+    <Compile Include="MatrixDraw.cs" />
+    <Compile Include="MatrixDrawElementStrategy.cs" />
     <Compile Include="Drawer.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="ClientSettingsForm.cs">
@@ -88,6 +90,7 @@
     <Compile Include="CompositeMatrix.cs" />
     <Compile Include="ConsoleDisplay.cs" />
     <Compile Include="DrawLeafMatrixVisitor.cs" />
+    <Compile Include="MatrixDrawShiftDownDecorator.cs" />
     <Compile Include="MatrixVisitorRenumDecorator.cs" />
     <Compile Include="IIterable.cs" />
     <Compile Include="IIteratorMatrix.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="MessageWarning.cs" />
     <Compile Include="NumLenght.cs" />
     <Compile Include="OrdinaryMatrix.cs" />
+    <Compile Include="OrdinaryMatrixDraw.cs" />
     <Compile Include="OrdinaryVector.cs" />
     <Compile Include="GraphicsPrimitives.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,7 +127,7 @@
     </Compile>
     <Compile Include="MatrixSymmetry.cs" />
     <Compile Include="MatrixVisitorTransposeDecorator.cs" />
-    <Compile Include="StrategyDrawCompositeMatrixVisitor.cs" />
+    <Compile Include="MatrixDrawShiftRightDecorator.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>
   <ItemGroup>
