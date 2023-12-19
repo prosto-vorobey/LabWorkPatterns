@@ -11,7 +11,7 @@ public class MatrixRenumDecorator : IMatrix
     private int _row2;
     public int NumColumns { get; }
     public int NumRows { get; }
-    public MatrixRenumDecorator (IMatrix matrix)
+    public MatrixRenumDecorator(IMatrix matrix)
     {
         _matrix = matrix;
         NumColumns = _matrix.NumColumns;
