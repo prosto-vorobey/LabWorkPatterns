@@ -1,5 +1,5 @@
 ﻿public interface IIterable
 {
-    IIteratorMatrix CreateIterator();
+    IMatrixIterator CreateIterator();
 
 }

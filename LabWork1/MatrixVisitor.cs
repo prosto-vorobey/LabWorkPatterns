@@ -1,6 +1,6 @@
 ﻿public interface IMatrixVisitor
 {
-    void VisitDrawDischargedMatrix (IMatrix dischargedMatrix);
-    void VisitDrawOrdinaryMatrix (IMatrix ordinaryMatrix);
+    void VisitDischargedMatrix (IMatrix dischargedMatrix);
+    void VisitOrdinaryMatrix (IMatrix ordinaryMatrix);
 
 }

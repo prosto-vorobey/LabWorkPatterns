@@ -15,7 +15,7 @@
     }
     public override void Accept(IMatrixVisitor drawer)
     {
-        drawer.VisitDrawDischargedMatrix(this);
+        drawer.VisitDischargedMatrix(this);
 
     }
     protected override IVector[] GetVector()

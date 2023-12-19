@@ -6,16 +6,16 @@
         _drawer = drawer;
 
     }
-    public void VisitDrawDischargedMatrix(IMatrix dischargedMatrix)
+    public void VisitDischargedMatrix(IMatrix dischargedMatrix)
     {
         dischargedMatrix = new MatrixTransposeDecorator(dischargedMatrix);
-        _drawer.VisitDrawDischargedMatrix(dischargedMatrix);
+        _drawer.VisitDischargedMatrix(dischargedMatrix);
 
     }
-    public void VisitDrawOrdinaryMatrix(IMatrix ordinaryMatrix)
+    public void VisitOrdinaryMatrix(IMatrix ordinaryMatrix)
     {
         ordinaryMatrix = new MatrixTransposeDecorator(ordinaryMatrix);
-        _drawer.VisitDrawOrdinaryMatrix(ordinaryMatrix);
+        _drawer.VisitOrdinaryMatrix(ordinaryMatrix);
 
     }
 

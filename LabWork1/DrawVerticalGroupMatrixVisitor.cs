@@ -8,14 +8,14 @@
         _drawer = drawer;
 
     }
-    public void VisitDrawDischargedMatrix(IMatrix dischargedMatrix)
+    public void VisitDischargedMatrix(IMatrix dischargedMatrix)
     {
         _matrixDraw = new MatrixDrawShiftDownDecorator(new DischargedMatrixDraw(), _shift);
         _matrixDraw.Draw(dischargedMatrix, _drawer);
         _shift += dischargedMatrix.NumColumns;
 
     }
-    public void VisitDrawOrdinaryMatrix(IMatrix ordinaryMatrix)
+    public void VisitOrdinaryMatrix(IMatrix ordinaryMatrix)
     {
         _matrixDraw = new MatrixDrawShiftDownDecorator(new OrdinaryMatrixDraw(), _shift);
         _matrixDraw.Draw(ordinaryMatrix, _drawer);
