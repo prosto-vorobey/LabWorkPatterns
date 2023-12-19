@@ -1,34 +1,25 @@
-﻿public class DrawVerticalGroupMatrixVisitor : ADrawMatrixVisitor
+﻿public class DrawVerticalGroupMatrixVisitor : IMatrixVisitor
 {
     private IDrawer _drawer;
-    private IDrawMatrixVisitorElementStrategy _strategyElement;
-    private IDrawCompositeMatrixVisitorStrategy _strategy;
+    private IMatrixDraw _matrixDraw;
     private int _shift = 0;
     public DrawVerticalGroupMatrixVisitor(IDrawer drawer)
     {
         _drawer = drawer;
-        _strategy = new DrawShiftDownStrategy();
 
     }
-    public override void VisitDrawDischargedMatrix(IMatrix dischargedMatrix)
+    public void VisitDrawDischargedMatrix(IMatrix dischargedMatrix)
     {
-        _strategyElement = new DrawDischargedMatrixElementStrategy(this);
-        _strategy.Draw(dischargedMatrix, _strategyElement, _shift);
+        _matrixDraw = new MatrixDrawShiftDownDecorator(new DischargedMatrixDraw(), _shift);
+        _matrixDraw.Draw(dischargedMatrix, _drawer);
         _shift += dischargedMatrix.NumColumns;
-        //DrawBorder(dischargedMatrix.NumColumns, dischargedMatrix.NumRows, MatrixMaxVal.GetLenghtMaxVal(dischargedMatrix));
 
     }
-    public override void VisitDrawOrdinaryMatrix(IMatrix ordinaryMatrix)
+    public void VisitDrawOrdinaryMatrix(IMatrix ordinaryMatrix)
     {
-        _strategyElement = new DrawOrdinaryMatrixElementStrategy(this);
-        _strategy.Draw(ordinaryMatrix, _strategyElement, _shift);
+        _matrixDraw = new MatrixDrawShiftDownDecorator(new OrdinaryMatrixDraw(), _shift);
+        _matrixDraw.Draw(ordinaryMatrix, _drawer);
         _shift += ordinaryMatrix.NumColumns;
-        //DrawBorder(ordinaryMatrix.NumColumns, ordinaryMatrix.NumRows, MatrixMaxVal.GetLenghtMaxVal(ordinaryMatrix));
-
-    }
-    protected override IDrawer GetDrawer()
-    {
-        return _drawer;
 
     }
 
