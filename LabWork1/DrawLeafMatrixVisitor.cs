@@ -15,9 +15,6 @@
             {
                 _strategy = new DrawDischargedMatrixElementStrategy(this);
                 _strategy.Draw(i, j, dischargedMatrix);
-                /*int num = dischargedMatrix.Get(i, j);
-                DrawCellBorder(i, j, MatrixMaxVal.GetLenghtMaxVal(dischargedMatrix));
-                DrawContent(num.ToString(), i, j, MatrixMaxVal.GetLenghtMaxVal(dischargedMatrix));*/
 
             }
 
@@ -33,14 +30,6 @@
             {
                 _strategy = new DrawOrdinaryMatrixElementStrategy(this);
                 _strategy.Draw(i, j, ordinaryMatrix);
-                /*int num = ordinaryMatrix.Get(i, j);
-                DrawCellBorder(i, j, MatrixMaxVal.GetLenghtMaxVal(ordinaryMatrix));
-                if (num == 0)
-                {
-                    continue;
-
-                }
-                DrawContent(num.ToString(), i, j, MatrixMaxVal.GetLenghtMaxVal(ordinaryMatrix));*/
 
             }
 
