@@ -6,9 +6,10 @@ namespace LabWork1
     public partial class ClientSettingsForm : Form
     {
         private ClientForm _clientForm;
-        public IDrawer Drawer { get; private set; }
+        public IMatrixVisitor Drawer { get; private set; }
         public IDisplay Display { get; private set; }
-        public IDisplayFactory TypeBorder { get; private set; }
+        public IGraphicsPrimitives GraphicsPrimetives { get; private set; }
+        public IConsolePrimitives ConsolePrimetives { get; private set; }
         public ClientSettingsForm(ClientForm clientForm)
         {
             InitializeComponent();
@@ -16,7 +17,8 @@ namespace LabWork1
             _clientForm = clientForm;
             Drawer = _clientForm.Drawer;
             Display = _clientForm.Display;
-            TypeBorder = _clientForm.TypeBorder;
+            GraphicsPrimetives = _clientForm.GraphicsPrimitives;
+            ConsolePrimetives = _clientForm.ConsolePrimitives;
             VisualizationComboBoxes();
 
         }
@@ -25,7 +27,7 @@ namespace LabWork1
             switch (comboBoxBorderHave.SelectedIndex)
             {
                 case 0:
-                    SingleLine();
+                    SwitchDisplay();
                     Drawer = new DrawerWithoutBorder(Display);
                     break;
                 case 1:
@@ -39,7 +41,7 @@ namespace LabWork1
         }
         private void VisualizationComboBoxes()
         {
-            /*if (Display != null)
+            if (Display != null)
             {
                 switch (Display.GetIndex)
                 {
@@ -94,7 +96,23 @@ namespace LabWork1
 
                 }
 
-            }*/
+            }
+
+        }
+        private void SwitchDisplay()
+        {
+            switch (comboBoxDisplayMatrix.SelectedIndex)
+            {
+                case 0:
+                    ConsolePrimetives = new ConsolePrimitives();
+                    Display = new ConsoleDisplay(ConsolePrimetives);
+                    break;
+                case 1:
+                    GraphicsPrimetives = new GraphicsPrimitives();
+                    Display = new GraphicsDisplay(_clientForm.GetPanelDrawing(), GraphicsPrimetives);
+                    break;
+
+            }
 
         }
         private void SwitchBorderType()
@@ -102,40 +120,21 @@ namespace LabWork1
             switch (comboBoxBorderType.SelectedIndex)
             {
                 case 0:
-                    SingleLine();
+                    SwitchDisplay();
                     break;
                 case 1:
-                    DoubleLine();
-                    break;
+                    switch (comboBoxDisplayMatrix.SelectedIndex)
+                    {
+                        case 0:
+                            ConsolePrimetives = new ConsoleDoubleLineDecorator(new ConsolePrimitives());
+                            Display = new ConsoleDisplay(ConsolePrimetives);
+                            break;
+                        case 1:
+                            GraphicsPrimetives = new GraphicsPrimitives(); //Добавить декоратор!
+                            Display = new GraphicsDisplay(_clientForm.GetPanelDrawing(), GraphicsPrimetives);
+                            break;
 
-            }
-
-        }
-        private void DoubleLine()
-        {
-            TypeBorder = new DoubleBorder();
-            switch (comboBoxDisplayMatrix.SelectedIndex)
-            {
-                case 0:
-                    Display = TypeBorder.CreateConsoleDisplay();
-                    break;
-                case 1:
-                    Display = TypeBorder.CreateGraphicsDisplay(_clientForm.GetPanelDrawing());
-                    break;
-
-            }
-
-        }
-        private void SingleLine()
-        {
-            TypeBorder = new SingleBorder();
-            switch (comboBoxDisplayMatrix.SelectedIndex)
-            {
-                case 0:
-                    Display = TypeBorder.CreateConsoleDisplay();
-                    break;
-                case 1:
-                    Display = TypeBorder.CreateGraphicsDisplay(_clientForm.GetPanelDrawing());
+                    }
                     break;
 
             }

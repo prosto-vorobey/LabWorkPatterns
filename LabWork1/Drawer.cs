@@ -21,13 +21,11 @@ public abstract class ADrawer : IDrawer
     abstract public void DrawBorder(int numCols, int numRows, int maxValLength);
     protected void Content(string cont, int corCellX, int corCellY)
     {
-        _display = GetDisplay();
         _display.Content(cont, corCellX, corCellY);
 
     }
     protected void Border(int corX1, int corY1, int corX2, int corY2)
     {
-        _display = GetDisplay();
         _display.Border(corX1, corY1, corX2, corY2);
 
     }

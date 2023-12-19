@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public interface IMatrixIterator
+public interface IIteratorMatrix
 {
     void Reset();
     IMatrix GetCurrent();
@@ -8,23 +8,23 @@ public interface IMatrixIterator
     bool IsDone();
 
 }
-public class CompositeMatrixIterator : IMatrixIterator
+public class CompositeMatrixIterator : IIteratorMatrix
 {
-    private ICompositeMatrix _matrix;
-    int _current = 0;
-    public CompositeMatrixIterator(ICompositeMatrix matrix)
+    private List<IMatrix> _matrixes;
+    int current = 0;
+    public CompositeMatrixIterator(List<IMatrix> matrixes)
     {
-        _matrix = matrix;
+        _matrixes = matrixes;
 
     }
     public IMatrix GetCurrent()
     {
-        return _matrix.GetMatrix(_current);
+        return _matrixes[current];
 
     }
     public bool IsDone()
     {
-        if (_matrix.Count() == _current)
+        if (_matrixes.Count == current)
         {
             return true;
 
@@ -40,14 +40,14 @@ public class CompositeMatrixIterator : IMatrixIterator
     {
         if (!IsDone())
         {
-            _current++;
+            current++;
 
         }
 
     }
     public void Reset()
     {
-        _current = 0;
+        current = 0;
 
     }
 

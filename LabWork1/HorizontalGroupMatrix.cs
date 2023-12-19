@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class HorizontalGroupMatrix : IMatrix
+public class HorizontalGroupMatrix : IMatrix, IIterable
 {
     private List<IMatrix> _matrixes = new List<IMatrix>();
-    private IMatrixDrawElementStrategy _strategy;
-    public HorizontalGroupMatrix()
-    {
-        _strategy = new CompositeMatrixDraw(this);
-
-    }
     public int NumColumns
     {
         get
@@ -32,9 +26,10 @@ public class HorizontalGroupMatrix : IMatrix
             int maxNumRows = 0;
             foreach (IMatrix matrix in _matrixes)
             {
-                if (matrix.NumRows > maxNumRows)
+                int numRows = matrix.NumRows;
+                if (numRows > maxNumRows)
                 {
-                    maxNumRows = matrix.NumRows;
+                    maxNumRows = numRows;
 
                 }
 
@@ -49,7 +44,7 @@ public class HorizontalGroupMatrix : IMatrix
         _matrixes.Add(matrix);
 
     }
-    public void Draw(IDrawerMatrix drawerMatrix)
+    /*public void Draw(IDrawer drawerMatrix)
     {
         for (int i = 0; i < NumColumns; i++)
         {
@@ -63,15 +58,16 @@ public class HorizontalGroupMatrix : IMatrix
         }
         drawerMatrix.DrawBorder(NumColumns, NumRows, MaxValMatrix.GetLenghtMaxVal(this));
 
-    }
+    }*/
     public int Get(int col, int row)
     {
         int val = 0;
         foreach (IMatrix matrix in _matrixes)
         {
-            if (col >= matrix.NumColumns)
+            int numColumns = matrix.NumColumns;
+            if (col >= numColumns)
             {
-                col -= matrix.NumColumns;
+                col -= numColumns;
                 continue;
 
             }
@@ -91,9 +87,10 @@ public class HorizontalGroupMatrix : IMatrix
     {
         foreach (IMatrix matrix in _matrixes)
         {
-            if (col >= matrix.NumColumns)
+            int numColumns = matrix.NumColumns;
+            if (col >= numColumns)
             {
-                col -= matrix.NumColumns;
+                col -= numColumns;
                 continue;
 
             }
@@ -108,9 +105,24 @@ public class HorizontalGroupMatrix : IMatrix
         }
 
     }
-    public bool IsComposite()
+    public void Accept(IMatrixVisitor drawer)
+    {
+        foreach (IMatrix matrix in _matrixes)
+        {
+            matrix.Accept(drawer);
+            //drawer = new MatrixVisitorShiftRightDecorator(drawer, matrix.NumColumns);
+
+        }
+
+    }
+    /*public bool IsComposite()
     {
         return true;
+
+    }*/
+    public HorizontalGroupMatrix GetComposite()
+    {
+        return this;
 
     }
     public IMatrix GetComponent()
@@ -118,54 +130,54 @@ public class HorizontalGroupMatrix : IMatrix
         return this;
 
     }
-    public IMatrixDrawElementStrategy GetDrawElementStrategy()
+    public IIteratorMatrix CreateIterator()
     {
-        return _strategy;
+        return new CompositeMatrixIterator(_matrixes);
 
     }
-    public class CompositeMatrixDraw : IMatrixDrawElementStrategy
-    {
-        private HorizontalGroupMatrix _compositeMatrix;
-        public CompositeMatrixDraw(HorizontalGroupMatrix compositeMatrix)
-        {
-            _compositeMatrix = compositeMatrix;
+    /*public class CompositeMatrixDraw : IMatrixDrawElementStrategy
+{
+   private HorizontalGroupMatrix _compositeMatrix;
+   public CompositeMatrixDraw(HorizontalGroupMatrix compositeMatrix)
+   {
+       _compositeMatrix = compositeMatrix;
 
-        }
-        public void Draw(int val, int col, int row, IDrawerMatrix drawerMatrix)
-        {
-            IMatrixDrawElementStrategy drawStrategy = GetDrawElementStrategy(col, row);
+   }
+   public void Draw(int val, int col, int row, IDrawer drawerMatrix)
+   {
+       IMatrixDrawElementStrategy drawStrategy = GetDrawElementStrategy(col, row);
 
-            if (drawStrategy != null)
-            {
-                drawStrategy.Draw(val, col, row, drawerMatrix);
+       if (drawStrategy != null)
+       {
+           drawStrategy.Draw(val, col, row, drawerMatrix);
 
-            }
+       }
 
-        }
-        private IMatrixDrawElementStrategy GetDrawElementStrategy(int col, int row)
-        {
-            IMatrixDrawElementStrategy drawStrategy = null;
-            foreach (IMatrix matrix in _compositeMatrix._matrixes)
-            {
-                if (col >= matrix.NumColumns)
-                {
-                    col -= matrix.NumColumns;
-                    continue;
+   }
+   private IMatrixDrawElementStrategy GetDrawElementStrategy(int col, int row)
+   {
+       IMatrixDrawElementStrategy drawStrategy = null;
+       foreach (IMatrix matrix in _compositeMatrix._matrixes)
+       {
+           if (col >= matrix.NumColumns)
+           {
+               col -= matrix.NumColumns;
+               continue;
 
-                }
-                if (row >= matrix.NumRows)
-                {
-                    break;
+           }
+           if (row >= matrix.NumRows)
+           {
+               break;
 
-                }
-                drawStrategy = matrix.GetDrawElementStrategy();
-                break;
+           }
+           drawStrategy = matrix.GetDrawElementStrategy();
+           break;
 
-            }
-            return drawStrategy;
+       }
+       return drawStrategy;
 
-        }
+   }
 
-    }
+}*/
 
 }

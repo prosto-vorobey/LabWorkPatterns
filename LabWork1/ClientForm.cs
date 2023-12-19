@@ -7,8 +7,8 @@ public partial class ClientForm : Form
 {
     private System.ComponentModel.BackgroundWorker backgroundWorker1;
     private IMatrix _matrix;
-    public IDrawerMatrix Drawer { get; private set; }
-    public IDrawerDisplay Display { get; private set; }
+    public IMatrixVisitor Drawer { get; private set; }
+    public IDisplay Display { get; private set; }
     public IGraphicsPrimitives GraphicsPrimitives { get; private set; }
     public IConsolePrimitives ConsolePrimitives { get; private set; }
     private System.ComponentModel.BackgroundWorker backgroundWorker2;
@@ -597,7 +597,7 @@ public partial class ClientForm : Form
         panelDrawing.Refresh();
         if (Drawer != null && Display != null && (GraphicsPrimitives != null || ConsolePrimitives != null))
         {
-            matrix.Draw(Drawer);
+            matrix.Accept(Drawer);
 
         }
 
@@ -715,7 +715,7 @@ public partial class ClientForm : Form
     {
         if (_matrix != null && Drawer != null)
         {
-            _matrix = new DecoratorRenumMatrix(_matrix);
+            _matrix = new MatrixRenumDecorator(_matrix);
             //_matrix = new DecoratorTransposeMatrix(_matrix);
 
         }
