@@ -1,10 +1,9 @@
-﻿public class DrawerWithoutBorder : ADrawerMatrix
+﻿public class DrawerWithoutBorder : ADrawer
 {
-    IDrawerDisplay _drawerDisplay;
-    public DrawerWithoutBorder(IDrawerDisplay drawerDisplay)
+    IDisplay _drawerDisplay;
+    public DrawerWithoutBorder(IDisplay drawerDisplay)
     {
         _drawerDisplay = drawerDisplay;
-        GetIndex = 0;
 
     }
     public override void DrawBorder(int numCols, int numRows, int maxValLength)
@@ -15,7 +14,7 @@
     {
 
     }
-    protected override IDrawerDisplay GetDisplay()
+    protected override IDisplay GetDisplay()
     {
         return _drawerDisplay;
 

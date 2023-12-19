@@ -1,13 +1,11 @@
-﻿public class DecoratorTransposeMatrix : IMatrix
+﻿public class MatrixTransposeDecorator : IMatrix
 {
     IMatrix _matrix;
-    public int NumColumns { get; }
-    public int NumRows { get; }
-    public DecoratorTransposeMatrix(IMatrix matrix)
+    public int NumColumns { get { return _matrix.NumRows; } }
+    public int NumRows { get { return _matrix.NumColumns; } }
+    public MatrixTransposeDecorator(IMatrix matrix)
     {
         _matrix = matrix;
-        NumColumns = _matrix.NumRows;
-        NumRows = _matrix.NumColumns;
 
     }
     public int Get(int col, int row)
@@ -20,7 +18,13 @@
         Set(row, col, val);
 
     }
-    public void Draw(IDrawerMatrix drawerMatrix)
+    public void Accept(IMatrixVisitor drawer)
+    {
+        drawer = new MatrixVisitorTransposeDecorator(drawer);
+        _matrix.Accept(drawer);
+
+    }
+    /*public void Draw(IDrawer drawerMatrix)
     {
         for (int i = 0; i < NumColumns; i++)
         {
@@ -40,15 +44,15 @@
     {
         return _matrix.IsComposite();
 
+    }*/
+    public HorizontalGroupMatrix GetComposite()
+    {
+        return _matrix.GetComposite();
+
     }
     public IMatrix GetComponent()
     {
-        return _matrix;
-
-    }
-    public IMatrixDrawElementStrategy GetDrawElementStrategy()
-    {
-        return _matrix.GetDrawElementStrategy();
+        return _matrix.GetComponent();
 
     }
 
