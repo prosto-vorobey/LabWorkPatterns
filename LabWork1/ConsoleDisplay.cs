@@ -1,13 +1,11 @@
-﻿public class ConsoleDisplay : IDrawerDisplay
+﻿public class ConsoleDisplay : IDisplay
 {
     private IConsolePrimitives _primitives;
     public ConsoleDisplay(IConsolePrimitives primitives)
     {
         _primitives = primitives;
-        GetIndex = 0;
 
     }
-    public int GetIndex { get; }
     public void Content (string cont, int corCellX, int corCellY)
     {
         _primitives.TextCell(cont, corCellX, corCellY);

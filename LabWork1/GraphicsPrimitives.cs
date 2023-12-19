@@ -2,7 +2,6 @@
 
 public interface IGraphicsPrimitives
 {
-    int GetIndex { get; }
     void TextCell(Graphics graphics, string text, int corX, int corY);
     void Line(Graphics graphics, int corX1, int corY1, int corX2, int corY2);
 
@@ -16,7 +15,6 @@ public class GraphicsPrimitives : IGraphicsPrimitives
     public GraphicsPrimitives()
     {
         _pen = new Pen(Color.Black, _penSize);
-        GetIndex = 0;
 
     }
     public int GetIndex { get; }

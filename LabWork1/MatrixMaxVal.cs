@@ -1,4 +1,4 @@
-﻿public static class MaxValMatrix
+﻿public static class MatrixMaxVal
 {
     public static int GetLenghtMaxVal(IMatrix matrix)
     {
