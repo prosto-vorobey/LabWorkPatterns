@@ -24,7 +24,7 @@
         if (_matrix.GetComposite() != null)
         {
             IIterable iterable = _matrix.GetComposite();
-            IIteratorMatrix iterator = iterable.CreateIterator();
+            IMatrixIterator iterator = iterable.CreateIterator();
             IMatrix someMatrix;
             while (!iterator.IsDone())
             {
@@ -42,7 +42,7 @@
         }
 
     }
-    public HorizontalGroupMatrix GetComposite()
+    public ICompositeMatrix GetComposite()
     {
         return _matrix.GetComposite();
 

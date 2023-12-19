@@ -13,9 +13,9 @@
         }
 
     }
-    public override void Accept(IMatrixVisitor drawer)
+    public override void Accept(IMatrixVisitor visitor)
     {
-        drawer.VisitDrawOrdinaryMatrix(this);
+        visitor.VisitOrdinaryMatrix(this);
 
     }
     protected override IVector[] GetVector()

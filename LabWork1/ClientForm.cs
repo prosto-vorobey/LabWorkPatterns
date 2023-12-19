@@ -600,7 +600,7 @@ public partial class ClientForm : Form
         if (matrix.GetComposite() != null)
         {
             IIterable iterable = matrix.GetComposite();
-            IIteratorMatrix iterator = iterable.CreateIterator();
+            IMatrixIterator iterator = iterable.CreateIterator();
             IMatrix someMatrix;
             while (!iterator.IsDone())
             {

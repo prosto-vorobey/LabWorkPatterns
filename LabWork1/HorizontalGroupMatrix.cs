@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class HorizontalGroupMatrix : IMatrix, IIterable
+public class HorizontalGroupMatrix : ICompositeMatrix
 {
     private List<IMatrix> _matrixes = new List<IMatrix>();
     public int NumColumns
@@ -90,16 +90,16 @@ public class HorizontalGroupMatrix : IMatrix, IIterable
         }
 
     }
-    public void Accept(IMatrixVisitor drawer)
+    public void Accept(IMatrixVisitor visitor)
     {
         foreach (IMatrix matrix in _matrixes)
         {
-            matrix.Accept(drawer);
+            matrix.Accept(visitor);
 
         }
 
     }
-    public HorizontalGroupMatrix GetComposite()
+    public ICompositeMatrix GetComposite()
     {
         return this;
 
@@ -109,9 +109,19 @@ public class HorizontalGroupMatrix : IMatrix, IIterable
         return this;
 
     }
-    public IIteratorMatrix CreateIterator()
+    public IMatrixIterator CreateIterator()
     {
-        return new CompositeMatrixIterator(_matrixes);
+        return new CompositeMatrixIterator(this);
+
+    }
+    public IMatrix GetMatrix(int current)
+    {
+        return _matrixes[current];
+
+    }
+    public int Count()
+    {
+        return _matrixes.Count;
 
     }
 
