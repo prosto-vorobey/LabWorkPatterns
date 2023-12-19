@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-public class GraphicsDisplay : IDrawerDisplay
+public class GraphicsDisplay : IDisplay
 {
     private Graphics _graphics;
     private IGraphicsPrimitives _primitives;
@@ -15,10 +15,8 @@ public class GraphicsDisplay : IDrawerDisplay
         _graphics = panel.CreateGraphics();
         _primitives = primitives;
         _primitives = new GraphicsPrimitives();
-        GetIndex = 1;
 
     }
-    public int GetIndex { get; }
     public void Content(string cont, int corCellX, int corCellY)
     {
         int contLenght = cont.Length;

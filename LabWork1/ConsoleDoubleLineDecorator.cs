@@ -1,7 +1,7 @@
-﻿public class DecoratorConsoleDoubleLine : IConsolePrimitives
+﻿public class ConsoleDoubleLineDecorator : IConsolePrimitives
 {
     IConsolePrimitives _prm;
-    public DecoratorConsoleDoubleLine(IConsolePrimitives prm)
+    public ConsoleDoubleLineDecorator(IConsolePrimitives prm)
     {
         _prm = prm;
         GetIndex = 1;

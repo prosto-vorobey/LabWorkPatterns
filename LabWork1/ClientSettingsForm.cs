@@ -6,8 +6,8 @@ namespace LabWork1
     public partial class ClientSettingsForm : Form
     {
         private ClientForm _clientForm;
-        public IDrawerMatrix Drawer { get; private set; }
-        public IDrawerDisplay Display { get; private set; }
+        public IMatrixVisitor Drawer { get; private set; }
+        public IDisplay Display { get; private set; }
         public IGraphicsPrimitives GraphicsPrimetives { get; private set; }
         public IConsolePrimitives ConsolePrimetives { get; private set; }
         public ClientSettingsForm(ClientForm clientForm)
@@ -126,7 +126,7 @@ namespace LabWork1
                     switch (comboBoxDisplayMatrix.SelectedIndex)
                     {
                         case 0:
-                            ConsolePrimetives = new DecoratorConsoleDoubleLine(new ConsolePrimitives());
+                            ConsolePrimetives = new ConsoleDoubleLineDecorator(new ConsolePrimitives());
                             Display = new ConsoleDisplay(ConsolePrimetives);
                             break;
                         case 1:

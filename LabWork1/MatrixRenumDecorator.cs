@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-public class DecoratorRenumMatrix : IMatrix
+public class MatrixRenumDecorator : IMatrix
 {
     private IMatrix _matrix;
     private Random rnd = new Random();
@@ -11,7 +11,7 @@ public class DecoratorRenumMatrix : IMatrix
     private int _row2;
     public int NumColumns { get; }
     public int NumRows { get; }
-    public DecoratorRenumMatrix (IMatrix matrix)
+    public MatrixRenumDecorator (IMatrix matrix)
     {
         _matrix = matrix;
         NumColumns = _matrix.NumColumns;
@@ -62,9 +62,11 @@ public class DecoratorRenumMatrix : IMatrix
         }
 
     }
-    public void Draw(IDrawerMatrix drawerMatrix)
+    public void Accept(IMatrixVisitor drawer)
     {
-        for (int i = 0; i < NumColumns; i++)
+        drawer = new MatrixVisitorRenumDecorator(drawer);
+        _matrix.Accept(drawer);
+        /*for (int i = 0; i < NumColumns; i++)
         {
             for (int j = 0; j < NumRows; j++)
             {
@@ -75,23 +77,18 @@ public class DecoratorRenumMatrix : IMatrix
             }
 
         }
-        drawerMatrix.DrawBorder(NumColumns, NumRows, MaxValMatrix.GetLenghtMaxVal(this));
-        MessageWarning.MessageOutRange($"Перенумерованы ячейки: {_col1 + 1}, {_row1 + 1}({_matrix.Get(_col1, _row1)}) и {_col2 + 1}, {_row2 + 1}({Get(_col1, _row1)})");
+        drawerMatrix.DrawBorder(NumColumns, NumRows, MatrixMaxVal.GetLenghtMaxVal(this));
+        MessageWarning.MessageOutRange($"Перенумерованы ячейки: {_col1 + 1}, {_row1 + 1}({_matrix.Get(_col1, _row1)}) и {_col2 + 1}, {_row2 + 1}({Get(_col1, _row1)})");*/
 
     }
-    public bool IsComposite()
+    public HorizontalGroupMatrix GetComposite()
     {
-        return _matrix.IsComposite();
-
-    }
-    public IMatrixDrawElementStrategy GetDrawElementStrategy()
-    {
-        return _matrix.GetDrawElementStrategy();
+        return _matrix.GetComposite();
 
     }
     public IMatrix GetComponent()
     {
-        return _matrix;
+        return _matrix.GetComponent();
 
     }
 
