@@ -73,9 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DischargedMatrixDraw.cs" />
+    <Compile Include="DrawerShiftDownDecorator.cs" />
     <Compile Include="DrawVerticalGroupMatrixVisitor.cs" />
     <Compile Include="DisplayFactory.cs" />
     <Compile Include="DrawHorizontalGroupMatrixVisitor.cs" />
+    <Compile Include="Observer.cs" />
     <Compile Include="MatrixDraw.cs" />
     <Compile Include="MatrixDrawElementStrategy.cs" />
     <Compile Include="Drawer.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="MatrixSymmetry.cs" />
     <Compile Include="MatrixVisitorTransposeDecorator.cs" />
     <Compile Include="MatrixDrawShiftRightDecorator.cs" />
+    <Compile Include="Subject.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,8 @@ public partial class ClientForm : Form
 {
     private System.ComponentModel.BackgroundWorker backgroundWorker1;
     private IMatrix _matrix;
+    private MatrixStatisticSubject _subject;
+    private MatrixStatisticObserver _observer;
     private IMatrixVisitor _visitor;
     public IDrawer Drawer { get; private set; }
     public IDisplay Display { get; private set; }
@@ -59,6 +61,16 @@ public partial class ClientForm : Form
         Drawer = _settingsForm.Drawer;
         Display = _settingsForm.Display;
         TypeBorder = _settingsForm.TypeBorder;
+        if (_matrix.GetComposite() != null)
+        {
+            _visitor = new DrawHorizontalGroupMatrixVisitor(Drawer);
+
+        }
+        else
+        {
+            _visitor = new DrawLeafMatrixVisitor(Drawer);
+
+        }
 
     }
     private void InitializeComponent()
@@ -597,8 +609,10 @@ public partial class ClientForm : Form
         panelDrawing.Visible = true;
         Console.Clear();
         panelDrawing.Refresh();
+        IMatrixVisitor visitorStatistic = new DrawLeafMatrixVisitor(new DrawerShiftDownDecorator(Drawer, _matrix.NumRows + 1));
         if (matrix.GetComposite() != null)
         {
+            visitor = new DrawHorizontalGroupMatrixVisitor(Drawer);
             IIterable iterable = matrix.GetComposite();
             IMatrixIterator iterator = iterable.CreateIterator();
             IMatrix someMatrix;
@@ -613,9 +627,11 @@ public partial class ClientForm : Form
         }
         else
         {
+            visitor = new DrawLeafMatrixVisitor(Drawer);
             matrix.Accept(visitor);
 
         }
+        _observer.Accept(visitorStatistic);
 
     }
     private void InitMatrix(int variant)
@@ -630,7 +646,6 @@ public partial class ClientForm : Form
             case 1:
                 _matrix = new DischargedMatrix(5, 10);
                 MatrixInitiator.FillMatrix(_matrix, _rnd.Next(1, 51), _rnd.Next(1, 999));
-                _visitor = new DrawLeafMatrixVisitor(Drawer);
                 break;
             case 2:
                 HorizontalGroupMatrix compositeMatrix = new HorizontalGroupMatrix();
@@ -647,10 +662,12 @@ public partial class ClientForm : Form
                 compositeMatrix.AddMatrix(matrix3);
                 compositeMatrix.AddMatrix(matrix4);
                 _matrix = compositeMatrix;
-                _visitor = new DrawHorizontalGroupMatrixVisitor(Drawer);
-                return;
+                break;
 
         }
+        _subject = new MatrixStatisticSubject(_matrix);
+        _observer = new MatrixStatisticObserver();
+        _subject.Attach(_observer);
 
     }
     private void FirstInitMatrix(int variant)
@@ -760,6 +777,7 @@ public partial class ClientForm : Form
 
         }
         _matrix = new MatrixTransposeDecorator(_matrix);
+        _subject.ModifyState(_matrix);
         DrawMatrix(_matrix, _visitor);
 
     }
@@ -771,6 +789,7 @@ public partial class ClientForm : Form
 
         }
         _matrix = _matrix.GetComponent();
+        _subject.ModifyState(_matrix);
         DrawMatrix(_matrix, _visitor);
 
     }
