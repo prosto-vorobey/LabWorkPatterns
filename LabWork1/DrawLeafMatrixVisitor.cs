@@ -1,7 +1,7 @@
 ﻿public class DrawLeafMatrixVisitor : ADrawMatrixVisitor
 {
     private IDrawer _drawer;
-    private IDrawMatrixVisitorStrategy _strategy;
+    private IDrawMatrixVisitorElementStrategy _strategy;
     public DrawLeafMatrixVisitor (IDrawer drawer)
     {
         _drawer = drawer;
@@ -14,7 +14,8 @@
             for (int j = 0; j < dischargedMatrix.NumRows; j++)
             {
                 _strategy = new DrawDischargedMatrixElementStrategy(this);
-                _strategy.Draw(i, j, dischargedMatrix);
+                int num = dischargedMatrix.Get(i, j);
+                _strategy.Draw(i, j, num, dischargedMatrix);
 
             }
 
@@ -29,7 +30,8 @@
             for (int j = 0; j < ordinaryMatrix.NumRows; j++)
             {
                 _strategy = new DrawOrdinaryMatrixElementStrategy(this);
-                _strategy.Draw(i, j, ordinaryMatrix);
+                int num = ordinaryMatrix.Get(i, j);
+                _strategy.Draw(i, j, num, ordinaryMatrix);
 
             }
 

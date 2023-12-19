@@ -18,33 +18,30 @@
         Set(row, col, val);
 
     }
-    public void Accept(IMatrixVisitor drawer)
+    public void Accept(IMatrixVisitor visitor)
     {
-        drawer = new MatrixVisitorTransposeDecorator(drawer);
-        _matrix.Accept(drawer);
-
-    }
-    /*public void Draw(IDrawer drawerMatrix)
-    {
-        for (int i = 0; i < NumColumns; i++)
+        visitor = new MatrixVisitorTransposeDecorator(visitor);
+        if (_matrix.GetComposite() != null)
         {
-            for (int j = 0; j < NumRows; j++)
+            IIterable iterable = _matrix.GetComposite();
+            IIteratorMatrix iterator = iterable.CreateIterator();
+            IMatrix someMatrix;
+            while (!iterator.IsDone())
             {
-                //Сначала запрашиваем стратегию матрицы для старых координат, потом отрисовываем в новых. Подумать как! 
-                int num = Get(i, j);
-                GetDrawElementStrategy().Draw(num, i, j, drawerMatrix);
+                someMatrix = iterator.GetCurrent();
+                someMatrix.Accept(visitor);
+                iterator.MoveNext();
 
             }
 
         }
-        drawerMatrix.DrawBorder(NumColumns, NumRows, MaxValMatrix.GetLenghtMaxVal(this));
+        else
+        {
+            _matrix.Accept(visitor);
+
+        }
 
     }
-    public bool IsComposite()
-    {
-        return _matrix.IsComposite();
-
-    }*/
     public HorizontalGroupMatrix GetComposite()
     {
         return _matrix.GetComposite();
