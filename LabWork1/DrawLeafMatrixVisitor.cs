@@ -7,13 +7,13 @@
         _drawer = drawer;
 
     }
-    public void VisitDrawDischargedMatrix(IMatrix dischargedMatrix)
+    public void VisitDischargedMatrix(IMatrix dischargedMatrix)
     {
         _matrixDraw = new DischargedMatrixDraw();
         _matrixDraw.Draw(dischargedMatrix, _drawer);
 
     }
-    public void VisitDrawOrdinaryMatrix(IMatrix ordinaryMatrix)
+    public void VisitOrdinaryMatrix(IMatrix ordinaryMatrix)
     {
         _matrixDraw = new OrdinaryMatrixDraw();
         _matrixDraw.Draw(ordinaryMatrix, _drawer);

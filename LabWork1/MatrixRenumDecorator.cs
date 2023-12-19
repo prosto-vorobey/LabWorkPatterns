@@ -81,7 +81,7 @@ public class MatrixRenumDecorator : IMatrix
         MessageWarning.MessageOutRange($"Перенумерованы ячейки: {_col1 + 1}, {_row1 + 1}({_matrix.Get(_col1, _row1)}) и {_col2 + 1}, {_row2 + 1}({Get(_col1, _row1)})");*/
 
     }
-    public HorizontalGroupMatrix GetComposite()
+    public ICompositeMatrix GetComposite()
     {
         return _matrix.GetComposite();
 
