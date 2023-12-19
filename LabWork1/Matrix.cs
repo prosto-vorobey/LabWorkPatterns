@@ -7,7 +7,7 @@ public interface IMatrix
     int Get(int col, int row);
     void Set(int col, int row, int val);
     void Accept(IMatrixVisitor visitor);
-    HorizontalGroupMatrix GetComposite();
+    ICompositeMatrix GetComposite();
     IMatrix GetComponent();
 
 }
@@ -56,7 +56,7 @@ public abstract class AMatrix : IMatrix
 
     }
     public abstract void Accept(IMatrixVisitor drawer);
-    public HorizontalGroupMatrix GetComposite()
+    public ICompositeMatrix GetComposite()
     {
         return null;
 
