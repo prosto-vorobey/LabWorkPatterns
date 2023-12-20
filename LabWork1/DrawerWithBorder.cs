@@ -1,17 +1,17 @@
-﻿public class DrawerWithBorder : ADrawerMatrix
+﻿public class DrawerWithBorder : ADrawer
 {
-    IDrawerDisplay _drawerDisplay;
-    public DrawerWithBorder(IDrawerDisplay drawerDisplay)
+    IDisplay _display;
+    public DrawerWithBorder(IDisplay display)
     {
-        _drawerDisplay = drawerDisplay;
-        GetIndex = 1;
+        _display = display;
 
     }
     public override void DrawBorder(int numCols, int numRows, int maxValLength)
     {
         int width = numCols * (maxValLength + 1);
         int height = numRows * 2;
-        _drawerDisplay.Border(0, 0, width, height);
+        _display = GetDisplay();
+        Border(0, 0, width, height);
 
     }
     public override void DrawCellBorder(int col, int row, int maxValLength)
@@ -20,12 +20,13 @@
         int corX2 = (col + 1) * (maxValLength + 1);
         int corY1 = row * 2;
         int corY2 = (row + 1) * 2;
-        GetDisplay().Border(corX1, corY1, corX2, corY2);
+        _display = GetDisplay();
+        Border(corX1, corY1, corX2, corY2);
 
     }
-    protected override IDrawerDisplay GetDisplay()
+    protected override IDisplay GetDisplay()
     {
-        return _drawerDisplay;
+        return _display;
 
     }
 

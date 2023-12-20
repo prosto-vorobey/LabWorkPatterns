@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class SymmetryMatrix : AMatrix
+public class MatrixSymmetry : AMatrix
 {
     /*    private OrdinaryVector[] _vectors;
         public override IVector[] GetMatrixVector(int cols, int rows)
@@ -30,12 +30,7 @@ public class SymmetryMatrix : AMatrix
             base.Draw(matrix, drawerMatrix);
 
         }*/
-    public override void Draw(IDrawerMatrix drawerMatrix)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override IMatrixStrategy GetMatrixStrategy()
+    public override void Accept(IMatrixVisitor drawerMatrix)
     {
         throw new NotImplementedException();
     }
